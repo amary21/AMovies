@@ -16,4 +16,10 @@
         android:name="com.amary.simovies.ui.bookmark.BookmarkFragment"
         android:label="@string/title_bookmark"
         tools:layout="@layout/fragment_bookmark" />
+
+    <fragment
+        android:id="@+id/navigation_content"
+        android:name="com.amary.simovies.ui.content.ContentFragment"
+        android:label="@string/title_content"
+        tools:layout="@layout/fragment_content" />
 </navigation>

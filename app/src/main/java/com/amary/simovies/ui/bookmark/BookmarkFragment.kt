@@ -1,35 +1,12 @@
 package com.amary.simovies.ui.bookmark
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import com.amary.simovies.base.BaseFragment
 import com.amary.simovies.databinding.FragmentBookmarkBinding
 
-class BookmarkFragment : Fragment() {
-
-    private var _binding: FragmentBookmarkBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-
-        _binding = FragmentBookmarkBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-        return root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+class BookmarkFragment : BaseFragment<FragmentBookmarkBinding>(FragmentBookmarkBinding::inflate) {
+    override fun initView(view: View, savedInstanceState: Bundle?) {
+        //TODO("Not yet implemented")
     }
 }

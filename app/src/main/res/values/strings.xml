@@ -6,4 +6,6 @@
     <string name="title_bookmark">Bookmark</string>
     <string name="msg_bar_home">Find Movies, Tv series,\nand more..</string>
     <string name="msg_bar_bookmark"><![CDATA[Bookmark Your Favorite\nMovies & Tv series]]></string>
+    <string name="title_movies">Movies</string>
+    <string name="title_tvseries">Tv Series</string>
 </resources>

@@ -4,7 +4,6 @@ import com.amary.simovies.base.BaseRemoteSource
 import com.amary.simovies.core.source.remote.network.ApiResult
 import com.amary.simovies.core.source.remote.network.ApiService
 import com.amary.simovies.core.source.remote.response.ApiResponse
-import com.amary.simovies.core.source.remote.response.ResultsResponse
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 

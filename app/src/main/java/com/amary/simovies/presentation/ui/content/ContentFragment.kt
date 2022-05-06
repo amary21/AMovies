@@ -1,4 +1,4 @@
-package com.amary.simovies.ui.content
+package com.amary.simovies.presentation.ui.content
 
 import android.os.Bundle
 import android.view.View

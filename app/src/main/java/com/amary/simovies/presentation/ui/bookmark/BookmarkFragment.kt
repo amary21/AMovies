@@ -1,4 +1,4 @@
-package com.amary.simovies.ui.bookmark
+package com.amary.simovies.presentation.ui.bookmark
 
 import android.os.Bundle
 import android.view.View

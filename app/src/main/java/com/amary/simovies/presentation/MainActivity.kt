@@ -1,9 +1,10 @@
-package com.amary.simovies
+package com.amary.simovies.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.amary.simovies.R
 import com.amary.simovies.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 

@@ -6,8 +6,9 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="black_erie">#15141F</color>
+    <color name="dark_liver">#515151</color>
     <color name="gray_platinum" tools:ignore="UnusedResources">#E2E2E2</color>
-    <color name="gray_x11" tools:ignore="UnusedResources">#BCBCBC</color>
+    <color name="gray_x11">#BCBCBC</color>
     <color name="red_lust" tools:ignore="UnusedResources">#EF2D1A</color>
     <color name="atomic_tangerine">#FF8F71</color>
 </resources>

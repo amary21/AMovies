@@ -27,7 +27,7 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeBottomLeft">@dimen/value_24dp</item>
         <item name="cornerSizeBottomRight">@dimen/value_24dp</item>
-        <item name="cornerSizeTopLeft">20dp</item>
-        <item name="cornerSizeTopRight">20dp</item>
+        <item name="cornerSizeTopLeft">@dimen/value_24dp</item>
+        <item name="cornerSizeTopRight">@dimen/value_24dp</item>
     </style>
 </resources>

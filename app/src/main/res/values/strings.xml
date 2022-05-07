@@ -7,4 +7,8 @@
     <string name="title_movies">Movies</string>
     <string name="title_tvseries">Tv Series</string>
     <string name="title_content">Content</string>
+    <string name="title_image_poster_detail">image poster detail</string>
+    <string name="title_release_date">Release date</string>
+    <string name="title_genre">Genre</string>
+    <string name="title_synopsis">Synopsis</string>
 </resources>

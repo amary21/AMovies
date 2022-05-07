@@ -5,4 +5,16 @@
     <dimen name="value_68dp">68dp</dimen>
     <dimen name="value_0dp">0dp</dimen>
     <dimen name="value_16sp">16sp</dimen>
+    <dimen name="value_287dp">287dp</dimen>
+    <dimen name="value_12dp">12dp</dimen>
+    <dimen name="value_4dp">4dp</dimen>
+    <dimen name="value_18dp">18dp</dimen>
+    <dimen name="value_16dp">16dp</dimen>
+    <dimen name="value_56dp">56dp</dimen>
+    <dimen name="value_12sp">12sp</dimen>
+    <dimen name="value_6dp">6dp</dimen>
+    <dimen name="value_14sp">14sp</dimen>
+    <dimen name="value_142dp">142dp</dimen>
+    <dimen name="value_106dp">106dp</dimen>
+    <dimen name="value_8dp">8dp</dimen>
 </resources>

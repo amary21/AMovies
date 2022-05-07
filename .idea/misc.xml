@@ -3,11 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/bg_item.xml" value="0.1815" />
         <entry key="app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.1815" />
         <entry key="app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.1815" />
         <entry key="app/src/main/res/drawable/ic_movies_title_colored.xml" value="0.1815" />
         <entry key="app/src/main/res/drawable/ic_movies_title_uncolored.xml" value="0.1815" />
         <entry key="app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.1815" />
+        <entry key="app/src/main/res/drawable/ic_place_holder.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_shadow_item.xml" value="0.1815" />
         <entry key="app/src/main/res/drawable/ic_title_colored.xml" value="0.1815" />
         <entry key="app/src/main/res/drawable/ic_tvseries_title_colored.xml" value="0.1815" />
         <entry key="app/src/main/res/drawable/ic_tvseries_title_uncolored.xml" value="0.1815" />
@@ -18,9 +21,10 @@
         <entry key="app/src/main/res/drawable/tab_tvseries.xml" value="0.1815" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1879232505643341" />
         <entry key="app/src/main/res/layout/fragment_bookmark.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/fragment_content.xml" value="0.1734375" />
+        <entry key="app/src/main/res/layout/fragment_content.xml" value="0.3061797752808989" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.1734375" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/item_list.xml" value="0.1734375" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.1734375" />
       </map>
     </option>

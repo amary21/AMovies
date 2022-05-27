@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorOnBackground"
-    tools:context=".presentation.MainActivity"
+    tools:context=".ui.MainActivity"
     tools:ignore="Overdraw,UnusedResources">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

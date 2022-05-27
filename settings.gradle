@@ -14,3 +14,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "SiMovies"
 include ':app'
+include ':core'

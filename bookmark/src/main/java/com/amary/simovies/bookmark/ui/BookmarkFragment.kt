@@ -1,4 +1,4 @@
-package com.amary.simovies.ui.bookmark
+package com.amary.simovies.bookmark.ui
 
 import android.os.Bundle
 import android.view.View
@@ -10,9 +10,11 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.amary.simovies.R
 import com.amary.core.base.BaseFragment
 import com.amary.core.constant.KeyValue
-import com.amary.simovies.databinding.FragmentBookmarkBinding
 import com.amary.simovies.adapter.FavoriteAdapter
+import com.amary.simovies.bookmark.databinding.FragmentBookmarkBinding
+import com.amary.simovies.bookmark.di.bookmarkModule
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.context.loadKoinModules
 
 class BookmarkFragment : BaseFragment<FragmentBookmarkBinding>(FragmentBookmarkBinding::inflate) {
     private val viewModel: BookmarkViewModel by viewModel()
@@ -23,6 +25,9 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding>(FragmentBookmarkB
         )
         findNavController().navigate(R.id.navigation_detail, bundle)
     }}
+
+    override fun onLoadModuleDFM() { loadKoinModules(bookmarkModule) }
+
     override fun initView(view: View, savedInstanceState: Bundle?) {
         binding?.apply {
             rvContent.layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)

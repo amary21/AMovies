@@ -1,4 +1,4 @@
-package com.amary.simovies.ui.bookmark
+package com.amary.simovies.bookmark.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData

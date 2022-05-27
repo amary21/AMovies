@@ -5,6 +5,8 @@
       <map>
         <entry key="app/src/main/res/drawable/bg_genre.xml" value="0.2015" />
         <entry key="app/src/main/res/drawable/bg_item.xml" value="0.1815" />
+        <entry key="app/src/main/res/drawable/ic_bookmark_selected.xml" value="0.2015" />
+        <entry key="app/src/main/res/drawable/ic_bookmark_unselected.xml" value="0.2015" />
         <entry key="app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.1815" />
         <entry key="app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.1815" />
         <entry key="app/src/main/res/drawable/ic_movies_title_colored.xml" value="0.1815" />
@@ -31,6 +33,7 @@
         <entry key="app/src/main/res/layout/item_list.xml" value="0.1734375" />
         <entry key="app/src/main/res/layout/item_screenshot.xml" value="0.23541666666666666" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.1734375" />
+        <entry key="bookmark/src/main/res/layout/fragment_bookmark.xml" value="0.1734375" />
       </map>
     </option>
   </component>

@@ -18,9 +18,12 @@ abstract class BaseFragment<VB: ViewBinding>(
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
+        onLoadModuleDFM()
         _binding = bindingInflater.invoke(inflater, container, false)
         return binding?.root
     }
+
+    open fun onLoadModuleDFM() {}
 
     abstract fun initView(view: View, savedInstanceState: Bundle?)
 

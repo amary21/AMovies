@@ -1,8 +1,11 @@
 package com.amary.simovies.di
 
+import androidx.room.Room
 import com.amary.simovies.BuildConfig
 import com.amary.simovies.constant.KeyValue
 import com.amary.simovies.core.Repository
+import com.amary.simovies.core.source.local.LocalSource
+import com.amary.simovies.core.source.local.room.DataBase
 import com.amary.simovies.core.source.remote.RemoteSource
 import com.amary.simovies.core.source.remote.network.ApiService
 import com.amary.simovies.domain.repository.IRepository
@@ -10,6 +13,7 @@ import com.amary.simovies.domain.usecase.Interact
 import com.amary.simovies.domain.usecase.UseCase
 import com.amary.simovies.presentation.ui.bookmark.BookmarkViewModel
 import com.amary.simovies.presentation.ui.content.ContentViewModel
+import com.amary.simovies.presentation.ui.detail.DetailViewModel
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import kotlinx.coroutines.Dispatchers
@@ -48,10 +52,20 @@ val networkModule = module {
     }
 }
 
+val databaseModule = module {
+    factory { get<DataBase>().dao() }
+    single {
+        Room.databaseBuilder(androidContext(), DataBase::class.java, KeyValue.DB_NAME)
+            .fallbackToDestructiveMigration()
+            .build()
+    }
+}
+
 val repositoryModule = module {
     factory { Dispatchers.IO }
     single { RemoteSource(get(), get()) }
-    single<IRepository> { Repository(get()) }
+    single { LocalSource(get()) }
+    single<IRepository> { Repository(get(), get()) }
 }
 
 val useCaseModule = module {
@@ -61,4 +75,5 @@ val useCaseModule = module {
 val viewModelModule = module {
     viewModel { ContentViewModel(get()) }
     viewModel { BookmarkViewModel(get()) }
+    viewModel { DetailViewModel(get()) }
 }

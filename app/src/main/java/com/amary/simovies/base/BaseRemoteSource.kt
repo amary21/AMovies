@@ -1,8 +1,7 @@
 package com.amary.simovies.base
 
 import com.amary.simovies.core.source.remote.network.ApiResult
-import com.amary.simovies.core.source.remote.response.ErrorAuthResponse
-import com.amary.simovies.core.source.remote.response.ErrorDataResponse
+import com.amary.simovies.core.source.remote.response.ErrorResponse
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
@@ -19,16 +18,8 @@ abstract class BaseRemoteSource(private val dispatcher: CoroutineDispatcher) {
             if (responseCall.isSuccessful && responseCall.body() != null){
                 responseCall.body()?.let { emit(ApiResult.Success(it)) }
             } else {
-                when(responseCall.code()){
-                    401 -> {
-                        val responseError = Gson().fromJson(responseCall.errorBody()?.charStream(), ErrorAuthResponse::class.java)
-                        emit(ApiResult.Error(responseCall.code(), responseError.statusMessage))
-                    }
-                     else -> {
-                         val responseError = Gson().fromJson(responseCall.errorBody()?.charStream(), ErrorDataResponse::class.java)
-                         emit(ApiResult.Error(responseCall.code(), responseError.errors[0]))
-                     }
-                }
+                val responseError = Gson().fromJson(responseCall.errorBody()?.charStream(), ErrorResponse::class.java)
+                emit(ApiResult.Error(responseCall.code(), responseError.statusMessage))
             }
         } catch (t: Throwable){
             when (t) {

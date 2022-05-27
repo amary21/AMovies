@@ -81,6 +81,16 @@
                 app:layout_constraintTop_toBottomOf="@+id/txt_title"
                 tools:text="152 minutes" />
 
+            <ImageView
+                android:id="@+id/btn_favorite"
+                android:layout_width="@dimen/value_30dp"
+                android:layout_height="@dimen/value_30dp"
+                android:background="@drawable/ic_fav_border"
+                app:layout_constraintBottom_toBottomOf="@+id/txt_rate"
+                app:layout_constraintEnd_toEndOf="@+id/txt_title"
+                app:layout_constraintTop_toTopOf="@+id/txt_rate"
+                tools:ignore="ContentDescription" />
+
             <TextView
                 android:id="@+id/txt_rate"
                 android:layout_width="wrap_content"
@@ -177,14 +187,14 @@
                 app:layout_constraintEnd_toEndOf="@+id/divider_bottom"
                 app:layout_constraintStart_toStartOf="@+id/tv_synopsis"
                 app:layout_constraintTop_toBottomOf="@+id/tv_synopsis"
-                tools:text="Rey (Daisy Ridley) finally manages to find the legendary Jedi knight, Luke Skywalker (Mark Hamill) on an island with a magical aura. The heroes of The Force Awakens including Leia, Finn" />
+                tools:text="Rey (Daisy) finally manages to find the legendary Jedi knight, Luke Skywalker (Mark Hamill) on an island with a magical aura. The heroes of The Force Awakens including Leia, Finn" />
 
             <TextView
                 android:id="@+id/tv_screenshot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/value_24dp"
-                android:text="@string/title_synopsis"
+                android:text="@string/title_screenshot"
                 android:textSize="@dimen/value_16sp"
                 app:layout_constraintStart_toStartOf="@+id/txt_synopsis"
                 app:layout_constraintTop_toBottomOf="@+id/txt_synopsis" />

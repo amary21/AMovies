@@ -11,4 +11,8 @@
     <string name="title_release_date">Release date</string>
     <string name="title_genre">Genre</string>
     <string name="title_synopsis">Synopsis</string>
+    <string name="title_screenshot">Screenshot</string>
+    <string name="title_detail">Detail</string>
+    <string name="msg_data_not_found">Data Not Found</string>
+    <string name="title_minutes">%1$s minutes</string>
 </resources>

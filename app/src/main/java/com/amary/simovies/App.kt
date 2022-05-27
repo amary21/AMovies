@@ -1,10 +1,7 @@
 package com.amary.simovies
 
 import android.app.Application
-import com.amary.simovies.di.networkModule
-import com.amary.simovies.di.repositoryModule
-import com.amary.simovies.di.useCaseModule
-import com.amary.simovies.di.viewModelModule
+import com.amary.simovies.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -20,6 +17,7 @@ class App: Application() {
             modules(
                 listOf(
                     networkModule,
+                    databaseModule,
                     repositoryModule,
                     useCaseModule,
                     viewModelModule

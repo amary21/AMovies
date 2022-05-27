@@ -5,14 +5,14 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.amary.simovies.core.source.remote.network.ApiResult
-import com.amary.simovies.core.source.remote.response.ApiResponse
+import com.amary.simovies.core.source.remote.response.ListResponse
 import com.amary.simovies.core.source.remote.response.ResultsResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import java.io.IOException
 
 open class BasePagingSource(
-    val remoteSource: suspend (Int) -> Flow<ApiResult<ApiResponse>>
+    val remoteSource: suspend (Int) -> Flow<ApiResult<ListResponse>>
 ) : PagingSource<Int, ResultsResponse>() {
     override fun getRefreshKey(state: PagingState<Int, ResultsResponse>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
@@ -31,10 +31,7 @@ open class BasePagingSource(
                         nextKey = page + 1
                     )
                 }
-                is ApiResult.Error -> {
-                    val responseBody = "${result.codeError} - ${result.errorMessage}"
-                    throw Exception(responseBody)
-                }
+                is ApiResult.Error -> throw Exception(result.errorMessage)
             }
         } catch (e: IOException) {
             LoadResult.Error(e)
@@ -50,12 +47,11 @@ open class BasePagingSource(
         fun build(
             pageSize: Int = DEFAULT_PAGE_SIZE,
             enablePlaceholders: Boolean = false,
-            remoteSource: suspend (Int) -> Flow<ApiResult<ApiResponse>>
+            remoteSource: suspend (Int) -> Flow<ApiResult<ListResponse>>
         ): Pager<Int, ResultsResponse> = Pager(
             config = PagingConfig(enablePlaceholders = enablePlaceholders, pageSize = pageSize),
             pagingSourceFactory = { BasePagingSource(remoteSource) }
         )
-
     }
 
 }

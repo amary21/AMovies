@@ -1,6 +1,8 @@
 package com.amary.simovies.domain.model
 
 import com.amary.simovies.constant.EmptyValue
+import com.amary.simovies.core.source.local.entity.ResultEntity
+import java.io.Serializable
 
 data class Result(
     val overview: String = EmptyValue.STRING,
@@ -8,7 +10,6 @@ data class Result(
     val originalTitle: String = EmptyValue.STRING,
     val video: Boolean = EmptyValue.BOOLEAN,
     val title: String = EmptyValue.STRING,
-    val genreIds: List<Int>,
     val posterPath: String = EmptyValue.STRING,
     val backdropPath: String = EmptyValue.STRING,
     val releaseDate: String = EmptyValue.STRING,
@@ -16,5 +17,23 @@ data class Result(
     val voteAverage: Double = EmptyValue.DOUBLE,
     val id: Int = EmptyValue.INT,
     val adult: Boolean = EmptyValue.BOOLEAN,
-    val voteCount: Int = EmptyValue.INT
-)
+    val voteCount: Int = EmptyValue.INT,
+    val idContent: Int = EmptyValue.INT
+): Serializable {
+    fun mapToEntity(idContent: Int) = ResultEntity(
+        overview,
+        originalLanguage,
+        originalTitle,
+        video,
+        title,
+        posterPath,
+        backdropPath,
+        releaseDate,
+        popularity,
+        voteAverage,
+        id,
+        adult,
+        voteCount,
+        idContent
+    )
+}

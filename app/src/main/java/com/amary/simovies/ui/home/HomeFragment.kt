@@ -9,13 +9,23 @@ import com.amary.simovies.databinding.FragmentHomeBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
+    private var tabAdapter: TabAdapter? = null
+
     override fun initView(view: View, savedInstanceState: Bundle?) {
+        tabAdapter = TabAdapter(this)
         binding?.apply {
-            viewPager.adapter = TabAdapter(requireActivity())
+            viewPager.isSaveEnabled = false
+            viewPager.adapter = tabAdapter
             TabLayoutMediator(tabs, viewPager){ tab, position ->
                 tab.text = getString(TAB_TITLES[position])
             }.attach()
         }
+    }
+
+    override fun onViewDestroy() {
+        super.onViewDestroy()
+        binding?.viewPager?.adapter = null
+        tabAdapter = null
     }
 
     companion object{

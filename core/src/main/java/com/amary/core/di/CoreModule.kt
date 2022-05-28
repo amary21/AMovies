@@ -9,9 +9,13 @@ import com.amary.core.data.source.local.room.DataBase
 import com.amary.core.data.source.remote.RemoteSource
 import com.amary.core.data.source.remote.network.ApiService
 import com.amary.core.domain.repository.IRepository
+import com.amary.core.util.SSLCertificateConfig.getSSLConfiguration
+import com.amary.core.util.SSLCertificateConfig.getTrustManagerFactory
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import kotlinx.coroutines.Dispatchers
+import net.sqlcipher.database.SQLiteDatabase
+import net.sqlcipher.database.SupportFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
@@ -33,7 +37,10 @@ val networkModule = module {
             .addInterceptor(chuckedInterceptor)
             .connectTimeout(KeyValue.TIME_NETWORK, TimeUnit.SECONDS)
             .readTimeout(KeyValue.TIME_NETWORK, TimeUnit.SECONDS)
-            .build()
+            .sslSocketFactory(
+                getSSLConfiguration(androidContext()).socketFactory,
+                getTrustManagerFactory(androidContext())
+            ).build()
     }
 
     single {
@@ -49,8 +56,11 @@ val networkModule = module {
 val databaseModule = module {
     factory { get<DataBase>().dao() }
     single {
+        val passphrase: ByteArray = SQLiteDatabase.getBytes(KeyValue.DB_NAME.toCharArray())
+        val factory = SupportFactory(passphrase)
         Room.databaseBuilder(androidContext(), DataBase::class.java, KeyValue.DB_NAME)
             .fallbackToDestructiveMigration()
+            .openHelperFactory(factory)
             .build()
     }
 }

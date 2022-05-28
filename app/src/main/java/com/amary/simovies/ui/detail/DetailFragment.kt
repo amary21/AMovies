@@ -22,10 +22,13 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding
     private val viewModel: DetailViewModel by viewModel()
     private val resultData: ResultData? by lazy { arguments?.getSerializable(KeyValue.BUNDLE_DETAIL) as ResultData }
     private val idContent: Int by lazy { arguments?.getInt(KeyValue.BUNDLE_CONTENT) ?: 1 }
-    private val genreAdapter: GenreAdapter by lazy { GenreAdapter() }
-    private val screenShotAdapter: ScreenShotAdapter by lazy { ScreenShotAdapter() }
+    private var genreAdapter: GenreAdapter? = null
+    private var screenShotAdapter: ScreenShotAdapter? = null
 
     override fun initView(view: View, savedInstanceState: Bundle?) {
+        genreAdapter = GenreAdapter()
+        screenShotAdapter = ScreenShotAdapter()
+
         binding?.apply {
             toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
             rvGenre.layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
@@ -46,13 +49,13 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding
             viewModel.content(idContent, resultData?.id ?: 0).observe(viewLifecycleOwner){
                 if (it is Resource.Success){
                     txtTime.text = getString(R.string.title_minutes, viewModel.getRuntime(it.data, idContent))
-                    genreAdapter.submitList(it.data?.genres)
+                    genreAdapter?.submitList(it.data?.genres)
                 }
             }
 
             viewModel.imageBackdrop(idContent, resultData?.id ?: 0).observe(viewLifecycleOwner){
                 if (it is Resource.Success){
-                    screenShotAdapter.submitList(it.data?.backdrops)
+                    screenShotAdapter?.submitList(it.data?.backdrops)
                 }
             }
 
@@ -76,9 +79,29 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding
         }
     }
 
+    override fun onViewDestroy() {
+        super.onViewDestroy()
+        genreAdapter = null
+        screenShotAdapter = null
 
+        binding?.apply {
+            rvGenre.apply {
+                layoutManager = null
+                adapter = null
+            }
 
+            rvScreenshot.apply {
+                layoutManager = null
+                adapter = null
+            }
 
+            txtTitle.text = null
+            txtRate.text = null
+            txtRelease.text = null
+            txtSynopsis.text = null
+            txtTime.text = null
+        }
+    }
 
 
 }

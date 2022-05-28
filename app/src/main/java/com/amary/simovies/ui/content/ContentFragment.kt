@@ -18,24 +18,26 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class ContentFragment : BaseFragment<FragmentContentBinding>(FragmentContentBinding::inflate) {
     private val viewModel: ContentViewModel by viewModel()
     private val idSection: Int by lazy { arguments?.getInt(ARG_SECTION_NUMBER) ?: 1 }
-    private val adapter: PagerAdapter by lazy { PagerAdapter{
-        val bundle = bundleOf(
-            KeyValue.BUNDLE_DETAIL to it,
-            KeyValue.BUNDLE_CONTENT to idSection
-        )
-        findNavController().navigate(R.id.navigation_detail, bundle)
-    }}
+    private var adapter: PagerAdapter? = null
 
     override fun initView(view: View, savedInstanceState: Bundle?) {
+        adapter = PagerAdapter{
+            val bundle = bundleOf(
+                KeyValue.BUNDLE_DETAIL to it,
+                KeyValue.BUNDLE_CONTENT to idSection
+            )
+            findNavController().navigate(R.id.navigation_detail, bundle)
+        }
+
         binding?.apply {
             rvContent.layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
             rvContent.adapter = adapter
 
             viewModel.content(idSection).observe(viewLifecycleOwner){
-                adapter.submitData(lifecycle, it)
+                adapter?.submitData(lifecycle, it)
             }
 
-            adapter.addLoadStateListener {
+            adapter?.addLoadStateListener {
                 viewModel.pagerResource(it).observe(viewLifecycleOwner){ state ->
                     when(state){
                         is Resource.Loading -> {
@@ -57,6 +59,15 @@ class ContentFragment : BaseFragment<FragmentContentBinding>(FragmentContentBind
                 }
             }
         }
+    }
+
+    override fun onViewDestroy() {
+        super.onViewDestroy()
+        binding?.rvContent?.apply {
+            adapter = null
+            layoutManager = null
+        }
+        adapter = null
     }
 
     companion object {

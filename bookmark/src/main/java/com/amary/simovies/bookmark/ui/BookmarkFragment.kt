@@ -18,17 +18,19 @@ import org.koin.core.context.loadKoinModules
 
 class BookmarkFragment : BaseFragment<FragmentBookmarkBinding>(FragmentBookmarkBinding::inflate) {
     private val viewModel: BookmarkViewModel by viewModel()
-    private val favoriteAdapter: FavoriteAdapter by lazy { FavoriteAdapter{
-        val bundle = bundleOf(
-            KeyValue.BUNDLE_DETAIL to it,
-            KeyValue.BUNDLE_CONTENT to it.idContent
-        )
-        findNavController().navigate(R.id.navigation_detail, bundle)
-    }}
+    private var favoriteAdapter: FavoriteAdapter? = null
 
     override fun onLoadModuleDFM() { loadKoinModules(bookmarkModule) }
 
     override fun initView(view: View, savedInstanceState: Bundle?) {
+        favoriteAdapter = FavoriteAdapter{
+            val bundle = bundleOf(
+                KeyValue.BUNDLE_DETAIL to it,
+                KeyValue.BUNDLE_CONTENT to it.idContent
+            )
+            findNavController().navigate(R.id.navigation_detail, bundle)
+        }
+
         binding?.apply {
             rvContent.layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
             rvContent.adapter = favoriteAdapter
@@ -37,12 +39,21 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding>(FragmentBookmarkB
                 if (it.isNotEmpty()){
                     tvNotFound.isVisible = false
                     rvContent.isVisible = true
-                    favoriteAdapter.submitList(it)
+                    favoriteAdapter?.submitList(it)
                 } else {
                     tvNotFound.isVisible = true
                     rvContent.isVisible = false
                 }
             }
         }
+    }
+
+    override fun onViewDestroy() {
+        super.onViewDestroy()
+        binding?.rvContent?.apply {
+            adapter = null
+            layoutManager = null
+        }
+        favoriteAdapter = null
     }
 }

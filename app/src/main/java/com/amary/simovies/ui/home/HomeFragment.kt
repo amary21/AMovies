@@ -1,42 +1,27 @@
 package com.amary.simovies.ui.home
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import com.amary.simovies.R
+import com.amary.simovies.adapter.TabAdapter
+import com.amary.core.base.BaseFragment
 import com.amary.simovies.databinding.FragmentHomeBinding
+import com.google.android.material.tabs.TabLayoutMediator
 
-class HomeFragment : Fragment() {
-
-    private var _binding: FragmentHomeBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
-
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
+    override fun initView(view: View, savedInstanceState: Bundle?) {
+        binding?.apply {
+            viewPager.adapter = TabAdapter(requireActivity())
+            TabLayoutMediator(tabs, viewPager){ tab, position ->
+                tab.text = getString(TAB_TITLES[position])
+            }.attach()
         }
-        return root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    companion object{
+        private val TAB_TITLES = arrayOf(
+            R.string.title_movies,
+            R.string.title_tvseries
+        )
     }
 }

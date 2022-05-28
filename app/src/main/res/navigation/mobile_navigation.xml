@@ -12,14 +12,27 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.amary.simovies.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_bookmark"
+        android:name="com.amary.simovies.bookmark.ui.BookmarkFragment"
+        android:label="@string/title_bookmark"
+        tools:layout="@layout/fragment_bookmark" >
+        <action
+            android:id="@+id/action_navigation_bookmark_to_navigation_detail"
+            app:destination="@id/navigation_detail" />
+    </fragment>
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.amary.simovies.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_content"
+        android:name="com.amary.simovies.ui.content.ContentFragment"
+        android:label="@string/title_content"
+        tools:layout="@layout/fragment_content" >
+        <action
+            android:id="@+id/action_navigation_content_to_navigation_detail"
+            app:destination="@id/navigation_detail" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_detail"
+        android:name="com.amary.simovies.ui.detail.DetailFragment"
+        android:label="@string/title_detail"
+        tools:layout="@layout/fragment_detail" />
 </navigation>

@@ -1,5 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/drawable/bg_genre.xml" value="0.2015" />
+        <entry key="app/src/main/res/drawable/bg_item.xml" value="0.1815" />
+        <entry key="app/src/main/res/drawable/ic_bookmark_selected.xml" value="0.2015" />
+        <entry key="app/src/main/res/drawable/ic_bookmark_unselected.xml" value="0.2015" />
+        <entry key="app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.1815" />
+        <entry key="app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.1815" />
+        <entry key="app/src/main/res/drawable/ic_movies_title_colored.xml" value="0.1815" />
+        <entry key="app/src/main/res/drawable/ic_movies_title_uncolored.xml" value="0.1815" />
+        <entry key="app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.1815" />
+        <entry key="app/src/main/res/drawable/ic_place_holder.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_shadow_detail.xml" value="0.156" />
+        <entry key="app/src/main/res/drawable/ic_shadow_item.xml" value="0.1815" />
+        <entry key="app/src/main/res/drawable/ic_title_colored.xml" value="0.1815" />
+        <entry key="app/src/main/res/drawable/ic_tvseries_title_colored.xml" value="0.1815" />
+        <entry key="app/src/main/res/drawable/ic_tvseries_title_uncolored.xml" value="0.1815" />
+        <entry key="app/src/main/res/drawable/mn_bookmark.xml" value="0.1815" />
+        <entry key="app/src/main/res/drawable/mn_home.xml" value="0.1815" />
+        <entry key="app/src/main/res/drawable/tab_indicator.xml" value="0.1815" />
+        <entry key="app/src/main/res/drawable/tab_movies.xml" value="0.1815" />
+        <entry key="app/src/main/res/drawable/tab_tvseries.xml" value="0.1815" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1879232505643341" />
+        <entry key="app/src/main/res/layout/fragment_bookmark.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_content.xml" value="0.3061797752808989" />
+        <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.1734375" />
+        <entry key="app/src/main/res/layout/fragment_detail.xml" value="0.5020979020979021" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/item_genre.xml" value="0.75" />
+        <entry key="app/src/main/res/layout/item_list.xml" value="0.1734375" />
+        <entry key="app/src/main/res/layout/item_screenshot.xml" value="0.23541666666666666" />
+        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.1734375" />
+        <entry key="bookmark/src/main/res/layout/fragment_bookmark.xml" value="0.1734375" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

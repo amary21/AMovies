@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorOnPrimary"
+    tools:context=".ui.detail.DetailFragment">
+
+    <ImageView
+        android:id="@+id/img_poster"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/value_287dp"
+        android:contentDescription="@string/title_image_poster_detail"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/value_0dp"
+        android:background="@drawable/ic_shadow_detail"
+        app:layout_constraintBottom_toBottomOf="@+id/img_poster"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/img_poster" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/value_24dp"
+        android:elevation="@dimen/value_0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_arrow_back" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/value_0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_poster">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5"/>
+
+            <TextView
+                android:id="@+id/txt_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/value_24dp"
+                android:textSize="@dimen/value_24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Star Wars: The Last Jedi" />
+
+            <TextView
+                android:id="@+id/txt_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/value_12dp"
+                android:drawablePadding="@dimen/value_4dp"
+                android:gravity="center"
+                android:textColor="@color/gray_x11"
+                app:drawableStartCompat="@drawable/ic_time"
+                app:drawableTint="@color/gray_x11"
+                app:layout_constraintStart_toStartOf="@+id/txt_title"
+                app:layout_constraintTop_toBottomOf="@+id/txt_title"
+                tools:text="152 minutes" />
+
+            <ImageView
+                android:id="@+id/btn_favorite"
+                android:layout_width="@dimen/value_30dp"
+                android:layout_height="@dimen/value_30dp"
+                android:background="@drawable/ic_fav_border"
+                app:layout_constraintBottom_toBottomOf="@+id/txt_rate"
+                app:layout_constraintEnd_toEndOf="@+id/txt_title"
+                app:layout_constraintTop_toTopOf="@+id/txt_rate"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/txt_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/value_18dp"
+                android:layout_marginTop="@dimen/value_12dp"
+                android:drawablePadding="@dimen/value_4dp"
+                android:gravity="center"
+                android:textColor="@color/gray_x11"
+                app:drawableStartCompat="@drawable/ic_star"
+                app:drawableTint="@color/gray_x11"
+                app:layout_constraintStart_toEndOf="@+id/txt_time"
+                app:layout_constraintTop_toBottomOf="@+id/txt_title"
+                tools:text="7.0 (IMDb)" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/divider_top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/value_24dp"
+                android:layout_marginTop="@dimen/value_16dp"
+                app:dividerColor="@color/dark_liver"
+                app:layout_constraintTop_toBottomOf="@+id/txt_rate" />
+
+            <TextView
+                android:id="@+id/tv_release"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/value_16dp"
+                android:text="@string/title_release_date"
+                android:textSize="@dimen/value_16sp"
+                app:layout_constraintStart_toStartOf="@+id/divider_top"
+                app:layout_constraintTop_toBottomOf="@+id/divider_top" />
+
+            <TextView
+                android:id="@+id/tv_genre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/value_16dp"
+                android:text="@string/title_genre"
+                android:textSize="@dimen/value_16sp"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toBottomOf="@+id/divider_top" />
+
+            <TextView
+                android:id="@+id/txt_release"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/value_12dp"
+                android:textColor="@color/gray_x11"
+                android:textSize="@dimen/value_12sp"
+                app:layout_constraintStart_toStartOf="@+id/tv_release"
+                app:layout_constraintTop_toBottomOf="@+id/tv_release"
+                tools:text="December 9, 2017" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_genre"
+                android:layout_width="@dimen/value_0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintEnd_toEndOf="@+id/divider_top"
+                app:layout_constraintStart_toStartOf="@+id/tv_genre"
+                app:layout_constraintTop_toBottomOf="@+id/tv_genre"
+                tools:itemCount="2"
+                tools:listitem="@layout/item_genre" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/divider_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/value_24dp"
+                android:layout_marginTop="@dimen/value_16dp"
+                app:dividerColor="@color/dark_liver"
+                app:layout_constraintTop_toBottomOf="@+id/rv_genre" />
+
+            <TextView
+                android:id="@+id/tv_synopsis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/value_16dp"
+                android:text="@string/title_synopsis"
+                android:textSize="@dimen/value_16sp"
+                app:layout_constraintStart_toStartOf="@+id/divider_bottom"
+                app:layout_constraintTop_toBottomOf="@+id/divider_bottom" />
+
+            <TextView
+                android:id="@+id/txt_synopsis"
+                android:layout_width="@dimen/value_0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/value_12dp"
+                android:textColor="@color/gray_x11"
+                android:textSize="@dimen/value_14sp"
+                app:layout_constraintEnd_toEndOf="@+id/divider_bottom"
+                app:layout_constraintStart_toStartOf="@+id/tv_synopsis"
+                app:layout_constraintTop_toBottomOf="@+id/tv_synopsis"
+                tools:text="Rey (Daisy) finally manages to find the legendary Jedi knight, Luke Skywalker (Mark Hamill) on an island with a magical aura. The heroes of The Force Awakens including Leia, Finn" />
+
+            <TextView
+                android:id="@+id/tv_screenshot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/value_24dp"
+                android:text="@string/title_screenshot"
+                android:textSize="@dimen/value_16sp"
+                app:layout_constraintStart_toStartOf="@+id/txt_synopsis"
+                app:layout_constraintTop_toBottomOf="@+id/txt_synopsis" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_screenshot"
+                android:layout_width="@dimen/value_0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/value_16dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="@+id/divider_top"
+                app:layout_constraintStart_toStartOf="@+id/tv_screenshot"
+                app:layout_constraintTop_toBottomOf="@+id/tv_screenshot"
+                tools:ignore="SpeakableTextPresentCheck"
+                tools:itemCount="3"
+                tools:listitem="@layout/item_screenshot" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

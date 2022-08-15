@@ -16,8 +16,11 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
-        buildConfigField 'String', 'BASE_URL', base_url
-        buildConfigField 'String', 'API_KEY', api_key
+        externalNativeBuild {
+            ndkBuild {
+                cppFlags ''
+            }
+        }
     }
 
     buildTypes {
@@ -39,6 +42,11 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    externalNativeBuild {
+        ndkBuild {
+            path file('src/main/jni/Android.mk')
+        }
     }
 }
 

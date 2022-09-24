@@ -77,4 +77,4 @@ jobs:
             token: ${{secrets.FIREBASE_TOKEN}}
             debug: true
             groups: coba-coba
-            file: app/build/outputs/apk/debug/*debug*.apk
+            file: app/build/outputs/apk/debug/${{env.version_name}}.apk

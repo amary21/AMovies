@@ -54,9 +54,14 @@ jobs:
 
         - name: Build debug APK
           run: bash ./gradlew assembleDebug --stacktrace
+          
+        - name: Retrieve Version
+          run: |
+            echo "::set-output name=VERSION_NAME::$(./gradlew -q printVersion)"
+          id: android_version
 
         - name: Upload APK
           uses: actions/upload-artifact@v3
           with:
-            name: echo "$(./gradlew -q printVersion)"
+            name: ${{env.version_name}}
             path: app/build/outputs/apk/debug/*debug*.apk

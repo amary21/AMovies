@@ -9,3 +9,22 @@ plugins {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+ext.getVersionCode = {
+    majorVersion, minorVersion, patchVersion ->
+        return majorVersion * 100000 + minorVersion * 10000  + patchVersion
+}
+
+ext.getVersionName = {
+    majorVersion, minorVersion, patchVersion ->
+        return "${majorVersion}.${minorVersion}.${patchVersion}"
+}
+
+ext.renameArtifact = {
+    name, variant ->
+        variant.outputs.all {
+            output ->
+                def date = new Date().format("ddMMyyyy")
+                outputFileName = "${name}-${variant.name}-${variant.versionName}-${date}.apk"
+        }
+}

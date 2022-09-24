@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "536176648484",
+    "project_id": "simovies",
+    "storage_bucket": "simovies.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:536176648484:android:ab756965c41535df2613b1",
+        "android_client_info": {
+          "package_name": "com.amary.simovies"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "536176648484-jb7a5pdk5o3gjq61h5qqtmofnv7uc9r0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwh54UbBtWDsVYeL23xcgH2URV3p_41VQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "536176648484-jb7a5pdk5o3gjq61h5qqtmofnv7uc9r0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

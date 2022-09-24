@@ -56,3 +56,11 @@ android {
 dependencies {
     implementation project(":core")
 }
+
+task printVersion {
+    doLast {
+        def date = new Date().format("ddMMyyyy")
+        def output = "siMovies-debug-${android.defaultConfig.versionName}-${date}"
+        println output
+    }
+}

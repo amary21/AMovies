@@ -28,10 +28,3 @@ ext.renameArtifact = {
                 outputFileName = "${name}-${variant.name}-${variant.versionName}-${date}.apk"
         }
 }
-
-
-
-
-task printVersionName {
-    println project.getVersion()
-}

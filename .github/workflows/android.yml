@@ -10,9 +10,6 @@ jobs:
   test:
     name: Run Unit Tests
     runs-on: ubuntu-latest
-    
-    env:
-      commitmsg: ${{ github.event.head_commit.message }}
 
     steps:
       - uses: actions/checkout@v3
@@ -80,5 +77,5 @@ jobs:
             token: ${{secrets.FIREBASE_TOKEN}}
             debug: true
             groups: coba-coba
-            releaseNotes: ${{ env.commitmsg }}
+            releaseNotes: ${{ github.event.head_commit.message }}
             file: app/build/outputs/apk/debug/${{env.version_name}}.apk

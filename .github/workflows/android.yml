@@ -12,7 +12,8 @@ jobs:
           echo "${{toJSON(github.event)}}"
 
       - name: Comment PR
-      - uses: 8BitJonny/gh-get-current-pr@2.1.2
+        uses: 8BitJonny/gh-get-current-pr@2.1.2
         id: PR
-
-      - run: echo "Your PR number is ${{ steps.PR.outputs.number }} and its JSON is ${{ steps.PR.outputs.pr }}"
+        
+      - name: Test
+        run: echo "Your PR number is ${{ steps.PR.outputs.number }} and its JSON is ${{ steps.PR.outputs.pr }}"

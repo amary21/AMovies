@@ -7,15 +7,6 @@ jobs:
     name: "LOG Everything on GitHub Event"
     runs-on: ubuntu-latest
     steps:
-
-      - name: Comment PR
-        uses: 8BitJonny/gh-get-current-pr@2.1.2
-        id: PR
-        with:
-          github-token: ${{ github.token }}
-          sha: ${{ github.event.pull_request.head.sha }}
-          filterOutClosed: true
-          filterOutDraft: true
-        
-      - name: Test
-        run: echo "Your PR number is ${{ steps.PR.outputs.number }} and its JSON is ${{ steps.PR.outputs.pr }}"
+      - name: Logging
+        run: |
+          echo "${{toJSON(github.head_ref)}}"

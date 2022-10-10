@@ -7,9 +7,6 @@ jobs:
     name: "LOG Everything on GitHub Event"
     runs-on: ubuntu-latest
     steps:
-      - name: Logging
-        run: |
-          echo "${{toJSON(github.event)}}"
 
       - name: Comment PR
         uses: 8BitJonny/gh-get-current-pr@2.1.2

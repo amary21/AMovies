@@ -64,11 +64,11 @@ jobs:
           run: |
             echo "version_name=${{steps.android_version.outputs.VERSION_NAME}}" >> $GITHUB_ENV
 
-        - name: Upload APK
-          uses: actions/upload-artifact@v3
-          with:
-            name: ${{env.version_name}}
-            path: app/build/outputs/apk/debug/*debug*.apk
+#        - name: Upload APK
+#          uses: actions/upload-artifact@v3
+#          with:
+#            name: ${{env.version_name}}
+#            path: app/build/outputs/apk/debug/*debug*.apk
         
         - name: upload artifact to Firebase App Distribution
           uses: wzieba/Firebase-Distribution-Github-Action@v1.3.5

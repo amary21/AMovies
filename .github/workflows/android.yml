@@ -77,5 +77,5 @@ jobs:
             token: ${{secrets.FIREBASE_TOKEN}}
             debug: true
             groups: coba-coba
-            releaseNotes: ${{ github.event.head_commit.message }}
+            releaseNotes: ${{ github.event.pull_request.title }}
             file: app/build/outputs/apk/debug/${{env.version_name}}.apk

@@ -64,13 +64,15 @@ jobs:
           run: |
             echo "version_name=${{steps.android_version.outputs.VERSION_NAME}}" >> $GITHUB_ENV
             
-#         - name: Install Firebase
-#           run: curl -sL https://firebase.tools | bash
-          
-#         - name: upload artifact to Firebase App Distribution
-#           run: |
-#             firebase appdistribution:distribute app/build/outputs/apk/debug/${{env.version_name}}.apk --app ${{secrets.FIREBASE_ID}} --token ${{secrets.FIREBASE_TOKEN}} --release-notes "Bug fixes and improvements"
+        - name: Install Firebase
+          run: curl -sL https://firebase.tools | bash
 
+        - name: upload artifact to Firebase App Distribution
+          run: |
+            firebase appdistribution:distribute test.apk  \
+                --app ${{secrets.FIREBASE_ID}}  \
+                --token ${{secrets.FIREBASE_TOKEN}}
+                --release-notes "Bug fixes and improvements" --groups "coba-coba"
 
 #        - name: Upload APK
 #          uses: actions/upload-artifact@v3
@@ -78,11 +80,11 @@ jobs:
 #            name: ${{env.version_name}}
 #            path: app/build/outputs/apk/debug/*debug*.apk
         
-        - name: upload artifact to Firebase App Distribution
-          uses: wzieba/Firebase-Distribution-Github-Action@v1.3.5
-          with:
-            appId: ${{secrets.FIREBASE_ID}}
-            serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
-            groups: coba-coba
-            releaseNotes: ${{ github.event.pull_request.title }} + "\n" + ${{ github.event.pull_request.body }}
-            file: app/build/outputs/apk/debug/${{env.version_name}}.apk
+#         - name: upload artifact to Firebase App Distribution
+#           uses: wzieba/Firebase-Distribution-Github-Action@v1.3.5
+#           with:
+#             appId: ${{secrets.FIREBASE_ID}}
+#             serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
+#             groups: coba-coba
+#             releaseNotes: ${{ github.event.pull_request.title }} + "\n" + ${{ github.event.pull_request.body }}
+#             file: app/build/outputs/apk/debug/${{env.version_name}}.apk

@@ -70,6 +70,7 @@ jobs:
         - name: upload artifact to Firebase App Distribution
           run: firebase appdistribution:distribute app/build/outputs/apk/debug/${{env.version_name}}.apk --app ${{secrets.FIREBASE_ID}} --release-notes "Upload from Github Action"
 
+
 #        - name: Upload APK
 #          uses: actions/upload-artifact@v3
 #          with:

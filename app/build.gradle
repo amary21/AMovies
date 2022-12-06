@@ -3,9 +3,14 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'kotlin-android'
+    id 'com.google.gms.google-services'
 }
 
 apply from: '../shared_dependencies.gradle'
+
+final VERSION_MAJOR = 2 // max one digits
+final VERSION_MINOR = 5 // max one digits
+final VERSION_PATCH = 59 // max tree digits
 
 android {
     compileSdk 31
@@ -14,8 +19,8 @@ android {
         applicationId "com.amary.simovies"
         minSdk 21
         targetSdk 31
-        versionCode 1
-        versionName "1.0"
+        versionCode getVersionCode(VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH)
+        versionName getVersionName(VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH)
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField 'String', 'BASE_IMAGE', base_image
@@ -23,14 +28,19 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    applicationVariants.all {
+        variant -> renameArtifact("siMovies", variant)
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -46,4 +56,12 @@ android {
 
 dependencies {
     implementation project(":core")
+}
+
+task printVersion {
+    doLast {
+        def date = new Date().format("ddMMyyyy")
+        def output = "siMovies-debug-${android.defaultConfig.versionName}-${date}"
+        println output
+    }
 }

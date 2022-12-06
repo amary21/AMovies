@@ -16,17 +16,20 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
-        buildConfigField 'String', 'BASE_URL', base_url
-        buildConfigField 'String', 'API_KEY', api_key
+        externalNativeBuild {
+            ndkBuild {
+                cppFlags ''
+            }
+        }
     }
 
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -39,6 +42,11 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    externalNativeBuild {
+        ndkBuild {
+            path file('src/main/jni/Android.mk')
+        }
     }
 }
 

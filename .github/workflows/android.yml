@@ -2,9 +2,9 @@ name: Android CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, develop ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, develop ]
 
 jobs:
   test:
@@ -40,14 +40,42 @@ jobs:
             distribution: 'temurin'
             cache: gradle
 
+        - name: Setup Android SDK
+          uses: android-actions/setup-android@v2.0.9
+
+        - name: Install NDK, CMake and Patcher
+          run: sdkmanager "ndk;21.4.7075529" "cmake;3.22.1" "patcher;v4"
+
         - name: Grant execute permission for gradlew
           run: chmod +x gradlew
+
         - name: Build with Gradle
           run: ./gradlew build
+
         - name: Build debug APK
           run: bash ./gradlew assembleDebug --stacktrace
-        - name: Upload APK
-          uses: actions/upload-artifact@v1
+          
+        - name: Retrieve Version
+          run: |
+            echo "::set-output name=VERSION_NAME::$(${{github.workspace}}/gradlew -q printVersion)"
+          id: android_version
+          
+        - name: Get version
+          run: |
+            echo "version_name=${{steps.android_version.outputs.VERSION_NAME}}" >> $GITHUB_ENV
+          
+
+#        - name: Upload APK
+#          uses: actions/upload-artifact@v3
+#          with:
+#            name: ${{env.version_name}}
+#            path: app/build/outputs/apk/debug/*debug*.apk
+        
+        - name: upload artifact to Firebase App Distribution
+          uses: wzieba/Firebase-Distribution-Github-Action@v1.4.0
           with:
-            name: app
-            path: app/build/outputs/apk/debug/app-debug.apk
+            appId: ${{secrets.FIREBASE_ID}}
+            serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
+            groups: coba-coba
+            releaseNotes: ${{ github.event.pull_request.title }} + "\n" + ${{ github.event.pull_request.body }}
+            file: app/build/outputs/apk/debug/${{env.version_name}}.apk

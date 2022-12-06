@@ -1,7 +1,7 @@
 package com.amary.core.di
 
 import androidx.room.Room
-import com.amary.core.BuildConfig
+import com.amary.core.constant.BaseKey
 import com.amary.core.constant.KeyValue
 import com.amary.core.data.Repository
 import com.amary.core.data.source.local.LocalSource
@@ -45,7 +45,7 @@ val networkModule = module {
 
     single {
         val retrofit = Retrofit.Builder()
-            .baseUrl(BuildConfig.BASE_URL)
+            .baseUrl(BaseKey.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(get())
             .build()

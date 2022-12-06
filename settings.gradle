@@ -16,3 +16,5 @@ rootProject.name = "SiMovies"
 include ':app'
 include ':core'
 include ':bookmark'
+
+

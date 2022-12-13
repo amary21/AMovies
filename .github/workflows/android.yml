@@ -77,5 +77,5 @@ jobs:
             appId: ${{secrets.FIREBASE_ID}}
             serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
             groups: coba-coba
-            releaseNotes: ${{ github.event.pull_request.title }} + "\n" + ${{ github.event.pull_request.body }}
+            releaseNotes: ${{ github.event.pull_request.title }} + " " + ${{ github.event.pull_request.body }} + ${{ github.event.head_commit.message }}
             file: app/build/outputs/apk/debug/${{env.version_name}}.apk

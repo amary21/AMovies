@@ -40,6 +40,10 @@ jobs:
             distribution: 'temurin'
             cache: gradle
             
+        - name: Event Github
+          run: |
+           echo ${{ toJSON(github.event) }}
+            
         - name: Google Chat Notification
           uses: amary21/google-chat-notification@v3
           with:
@@ -48,9 +52,7 @@ jobs:
             status: ${{ job.status }}
             open_check_url: google.com
           if: always()
-#         - name: Event Github
-#           run: |
-#             echo ${{ toJSON(github.event) }}
+
 
 #         - name: Setup Android SDK
 #           uses: android-actions/setup-android@v2.0.9

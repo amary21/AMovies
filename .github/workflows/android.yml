@@ -41,7 +41,7 @@ jobs:
             cache: gradle
             
         - name: Google Chat Notification
-          uses: amary21/google-chat-notification@releases/v1
+          uses: amary21/google-chat-notification@v1
           with:
             name: Build
             url: ${{ secrets.GOOGLE_CHAT_WEBHOOK }}

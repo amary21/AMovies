@@ -44,7 +44,7 @@ jobs:
           uses: amary21/google-chat-notification@v1
           with:
             name: Build
-            url: ${{ secrets.GOOGLE_CHAT_WEBHOOK }}
+            url: "https://chat.googleapis.com/v1/spaces/AAAABPDzQcw/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=gorLV_2FuceV9bK0YNlM2srZB6cKCg4uejh-CXFoaPo%3D"
             status: ${{ job.status }}
             open_check_url: google.com
           if: always()

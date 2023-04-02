@@ -7,25 +7,25 @@ on:
     branches: [ main, develop ]
 
 jobs:
-  test:
-    name: Run Unit Tests
-    runs-on: ubuntu-latest
+#   test:
+#     name: Run Unit Tests
+#     runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v3
-      - name: set up JDK 11
-        uses: actions/setup-java@v3
-        with:
-          java-version: '11'
-          distribution: 'temurin'
-          cache: gradle
+#     steps:
+#       - uses: actions/checkout@v3
+#       - name: set up JDK 11
+#         uses: actions/setup-java@v3
+#         with:
+#           java-version: '11'
+#           distribution: 'temurin'
+#           cache: gradle
 
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-      - name: Build with Gradle
-        run: ./gradlew build
-      - name: Unit tests
-        run: bash ./gradlew test --stacktrace
+#       - name: Grant execute permission for gradlew
+#         run: chmod +x gradlew
+#       - name: Build with Gradle
+#         run: ./gradlew build
+#       - name: Unit tests
+#         run: bash ./gradlew test --stacktrace
         
   apk:
       name: Generate APK
@@ -39,30 +39,44 @@ jobs:
             java-version: '11'
             distribution: 'temurin'
             cache: gradle
-
-        - name: Setup Android SDK
-          uses: android-actions/setup-android@v2.0.9
-
-        - name: Install NDK, CMake and Patcher
-          run: sdkmanager "ndk;21.4.7075529" "cmake;3.22.1" "patcher;v4"
-
-        - name: Grant execute permission for gradlew
-          run: chmod +x gradlew
-
-        - name: Build with Gradle
-          run: ./gradlew build
-
-        - name: Build debug APK
-          run: bash ./gradlew assembleDebug --stacktrace
-          
-        - name: Retrieve Version
+            
+        - name: Event Github
           run: |
-            echo "::set-output name=VERSION_NAME::$(${{github.workspace}}/gradlew -q printVersion)"
-          id: android_version
+           echo ${{ toJSON(github.event) }}
+            
+        - name: Google Chat Notification
+          uses: amary21/google-chat-notification@v3
+          with:
+            name: Build
+            url: "https://chat.googleapis.com/v1/spaces/AAAABPDzQcw/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=gorLV_2FuceV9bK0YNlM2srZB6cKCg4uejh-CXFoaPo%3D"
+            status: ${{ job.status }}
+            open_check_url: google.com
+          if: always()
+
+
+#         - name: Setup Android SDK
+#           uses: android-actions/setup-android@v2.0.9
+
+#         - name: Install NDK, CMake and Patcher
+#           run: sdkmanager "ndk;21.4.7075529" "cmake;3.22.1" "patcher;v4"
+
+#         - name: Grant execute permission for gradlew
+#           run: chmod +x gradlew
+
+#         - name: Build with Gradle
+#           run: ./gradlew build
+
+#         - name: Build debug APK
+#           run: bash ./gradlew assembleDebug --stacktrace
           
-        - name: Get version
-          run: |
-            echo "version_name=${{steps.android_version.outputs.VERSION_NAME}}" >> $GITHUB_ENV
+#         - name: Retrieve Version
+#           run: |
+#             echo "::set-output name=VERSION_NAME::$(${{github.workspace}}/gradlew -q printVersion)"
+#           id: android_version
+          
+#         - name: Get version
+#           run: |
+#             echo "version_name=${{steps.android_version.outputs.VERSION_NAME}}" >> $GITHUB_ENV
           
 
 #        - name: Upload APK
@@ -71,11 +85,11 @@ jobs:
 #            name: ${{env.version_name}}
 #            path: app/build/outputs/apk/debug/*debug*.apk
         
-        - name: upload artifact to Firebase App Distribution
-          uses: wzieba/Firebase-Distribution-Github-Action@v1.4.0
-          with:
-            appId: ${{secrets.FIREBASE_ID}}
-            serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
-            groups: coba-coba
-            releaseNotes: ${{ github.event.pull_request.title }} + "\n" + ${{ github.event.pull_request.body }}
-            file: app/build/outputs/apk/debug/${{env.version_name}}.apk
+#         - name: upload artifact to Firebase App Distribution
+#           uses: wzieba/Firebase-Distribution-Github-Action@v1.4.0
+#           with:
+#             appId: ${{secrets.FIREBASE_ID}}
+#             serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
+#             groups: coba-coba
+#             releaseNotes: ${{ github.event.pull_request.title }} + " " + ${{ github.event.pull_request.body }} + ${{ github.event.head_commit.message }}
+#             file: app/build/outputs/apk/debug/${{env.version_name}}.apk

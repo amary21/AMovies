@@ -89,7 +89,7 @@ jobs:
           echo "release_note=[APK-Dev] ${{ env.commit_note }}" >> $GITHUB_ENV
           echo "build_apk=assembleDevelopmentDebug" >> $GITHUB_ENV
           echo "release_directory=app/build/outputs/apk/development/debug" >> $GITHUB_ENV
-          echo "location_apk=app/build/outputs/apk/development/debug/$(${{github.workspace}}/gradlew -q printVersion)" >> $GITHUB_ENV
+#          echo "location_apk=app/build/outputs/apk/development/debug/$(${{github.workspace}}/gradlew -q printVersion)" >> $GITHUB_ENV
 
       - name: output
         run: |

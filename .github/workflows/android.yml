@@ -1,10 +1,12 @@
 name: Android CI
 
 on:
-  push:
-    branches: [ main, develop ]
-  pull_request:
-    branches: [ main, develop ]
+  workflow_dispatch:
+    input:
+      environment:
+        description: 'Select the environment'
+        type: environment
+        required: true
 
 jobs:
 #   test:

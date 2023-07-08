@@ -96,7 +96,7 @@ jobs:
         if: github.event.inputs.flavor == 'developmentDebug'
         run: |
           echo "release_note=[APK-Dev]${{ env.commit_note }}" >> $GITHUB_ENV
-          echo "build_apk=assembleDevelopmentDebug" >> $GITHUB_ENV
+          echo "build_apk=assembleDebug" >> $GITHUB_ENV
           echo "directory_apk=app/build/outputs/apk/development/debug" >> $GITHUB_ENV
           echo "app_id_apk=" >> $GITHUB_ENV
           echo "location_apk=app/build/outputs/apk/development/debug/$(${{github.workspace}}/gradlew -q printVersion)" >> $GITHUB_ENV
@@ -167,6 +167,9 @@ jobs:
       - name: output
         run: |
           echo ${{env}}
+
+      - name: Build debug APK
+        run: ./gradlew ${{ env.build_apk }}
             
 #        - name: Google Chat Notification
 #          uses: amary21/google-chat-notification@v3
@@ -189,9 +192,6 @@ jobs:
 
 #         - name: Build with Gradle
 #           run: ./gradlew build
-
-#         - name: Build debug APK
-#           run: bash ./gradlew assembleDebug --stacktrace
           
 #         - name: Retrieve Version
 #           run: |

@@ -84,7 +84,7 @@ jobs:
           echo "commit_note=${{ github.event.inputs.releaseNotes }}" >> $GITHUB_ENV
 
       - name: Check Flavor development
-        if: github.event.inputs.flavor == developmentDebug
+        if: github.event.inputs.flavor == 'developmentDebug'
         run: |
           echo "release_note=[APK-Dev] ${{ env.commit_note }}" >> $GITHUB_ENV
           echo "build_apk=assembleDevelopmentDebug" >> $GITHUB_ENV

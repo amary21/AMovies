@@ -4,18 +4,22 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        type: environment
+        type: flavor
         description: Select the environment
       boolean:
         type: boolean
         description: True or False
       choice:
         type: choice
-        description: Make a choice
+        description: Select Flavor Build
         options:
           - foo
           - bar
           - baz
+      commit:
+        description: 'Release Note'
+        required: true
+        default: $(git log -1 --pretty=format:%s)
 
 jobs:
 #   test:

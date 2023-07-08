@@ -17,7 +17,7 @@ on:
           - productionDebug
           - productionDexguardDebug
       releaseNotes:
-        description: 'Release Notes (optional)'
+        description: Release Notes (optional)
 
 jobs:
 #   test:

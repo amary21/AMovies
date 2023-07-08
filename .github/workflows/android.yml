@@ -8,8 +8,14 @@ on:
         description: Select Flavor Build
         required: true
         options:
-          - development
-          - testing
+          - developmentDebug
+          - developmentDexguardDebug
+          - qualityDebug
+          - qualityDexguardDebug
+          - stagingDebug
+          - stagingDexguardDebug
+          - productionDebug
+          - productionDexguardDebug
       releaseNotes:
         description: 'Release Notes (optional)'
 
@@ -62,19 +68,19 @@ jobs:
           msg: ${{ steps.commit_check.outputs.CURRENT_COMMIT }}
           separator: 'KB-FMF/'
 
-      - name: Input Release Note When Condition prefix feat/ or fix/
+      - name: Input Commit Note When Condition prefix feat/ or fix/
         if: steps.feat.outputs.length == 2 && github.event.inputs.releaseNotes == ''
         run: |
-          echo "print_release_note=[APK-Dev] ${{ steps.feat.outputs._1 }}" >> $GITHUB_ENV
+          echo "print_commit_note=${{ steps.feat.outputs._1 }}" >> $GITHUB_ENV
 
-      - name: Input Release Note When Not Condition prefix feat/ or fix/
+      - name: Input Commit Note When Not Condition prefix feat/ or fix/
         if: steps.feat.outputs.length == 1 && github.event.inputs.releaseNotes == ''
         run: |
-          echo "print_release_note=[APK-Dev] ${{ steps.feat.outputs._0 }}" >> $GITHUB_ENV
-      - name: Input Release Note Manual Workflow Dispatch
+          echo "print_commit_note=${{ steps.feat.outputs._0 }}" >> $GITHUB_ENV
+      - name: Input Commit Note Manual Workflow Dispatch
         if: github.event.inputs.releaseNotes != ''
         run: |
-          echo "print_release_note=[APK-Dev] ${{ github.event.inputs.releaseNotes }}" >> $GITHUB_ENV
+          echo "print_commit_note=${{ github.event.inputs.releaseNotes }}" >> $GITHUB_ENV
       - name: output
         run: |
           echo ${{env.print_release_note}}

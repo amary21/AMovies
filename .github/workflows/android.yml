@@ -71,19 +71,29 @@ jobs:
       - name: Input Commit Note When Condition prefix feat/ or fix/
         if: steps.feat.outputs.length == 2 && github.event.inputs.releaseNotes == ''
         run: |
-          echo "print_commit_note=${{ steps.feat.outputs._1 }}" >> $GITHUB_ENV
+          echo "commit_note=${{ steps.feat.outputs._1 }}" >> $GITHUB_ENV
 
       - name: Input Commit Note When Not Condition prefix feat/ or fix/
         if: steps.feat.outputs.length == 1 && github.event.inputs.releaseNotes == ''
         run: |
-          echo "print_commit_note=${{ steps.feat.outputs._0 }}" >> $GITHUB_ENV
+          echo "commit_note=${{ steps.feat.outputs._0 }}" >> $GITHUB_ENV
+
       - name: Input Commit Note Manual Workflow Dispatch
         if: github.event.inputs.releaseNotes != ''
         run: |
-          echo "print_commit_note=${{ github.event.inputs.releaseNotes }}" >> $GITHUB_ENV
+          echo "commit_note=${{ github.event.inputs.releaseNotes }}" >> $GITHUB_ENV
+
+      - name: Check Flavor development
+        if: github.event.inputs.flavor == developmentDebug
+        run: |
+          echo "release_note=[APK-Dev] ${{ env.commit_note }}" >> $GITHUB_ENV
+          echo "build_apk=assembleDevelopmentDebug" >> $GITHUB_ENV
+          echo "release_directory=app/build/outputs/apk/development/debug" >> $GITHUB_ENV
+          echo "location_apk=app/build/outputs/apk/development/debug/$(${{github.workspace}}/gradlew -q printVersionDev)" >> $GITHUB_ENV
+
       - name: output
         run: |
-          echo ${{env.print_release_note}}
+          echo ${{env}}
             
 #        - name: Google Chat Notification
 #          uses: amary21/google-chat-notification@v3

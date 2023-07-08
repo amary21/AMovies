@@ -3,17 +3,15 @@ name: Android CI
 on:
   workflow_dispatch:
     inputs:
-      choice:
+      flavor:
         type: choice
         description: Select Flavor Build
         required: true
         options:
           - development
           - testing
-      commit:
-        description: 'Release Note'
-        required: true
-        default: ${{ github.event.head_commit.message }}
+      releaseNotes:
+        description: 'Release Notes (optional)'
 
 jobs:
 #   test:

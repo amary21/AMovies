@@ -2,11 +2,20 @@ name: Android CI
 
 on:
   workflow_dispatch:
-    input:
+    inputs:
       environment:
-        description: 'Select the environment'
         type: environment
-        required: true
+        description: Select the environment
+      boolean:
+        type: boolean
+        description: True or False
+      choice:
+        type: choice
+        description: Make a choice
+        options:
+          - foo
+          - bar
+          - baz
 
 jobs:
 #   test:

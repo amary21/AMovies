@@ -4,7 +4,7 @@
 
 WKWKKWK
 
-LOLOLOLO
+LOLOLOLO/v1.0.0
 
 Test
 

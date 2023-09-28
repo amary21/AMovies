@@ -32,6 +32,7 @@ jobs:
           header_name: Android Testing Build
           header_icon_url: https://lh3.googleusercontent.com/proxy/XZTUe_ZhoVh2byuN-yv6UWtOTW45FgjqhwWYKo8wOyPpMJ5x1N2HVzVWuMdI9aOhePzyUQ9tVr5QyjDBckRqw2J9F4woZfJ6P-O5YWTXvP_4wz4DQmrJW8PEoxOCnbVZzQ
           version_app: "3.1.1"
+          release_note: [APK-Testing][KPM-4374]
           name: Build Test
           url: https://chat.googleapis.com/v1/spaces/AAAAKcZxd_Y/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=0SSQM8zTdsJs-XNOaL83dZgfb-MG_xUdIwxnNhZkriA
           status: ${{ job.status }}

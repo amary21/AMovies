@@ -29,6 +29,7 @@ jobs:
       - name: Google Chat Notification
         uses: amary21/google-chat-notification@v9
         with:
+          header_name: Android Testing Build
           name: Build Test
           url: https://chat.googleapis.com/v1/spaces/AAAAKcZxd_Y/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=0SSQM8zTdsJs-XNOaL83dZgfb-MG_xUdIwxnNhZkriA
           status: ${{ job.status }}

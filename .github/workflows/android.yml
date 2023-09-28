@@ -38,6 +38,14 @@ jobs:
           url_download: google.com
         if: always()
 
+      - name: Google Chat Notification v3
+        uses: amary21/google-chat-notification@v3
+        with:
+          name: Build Test
+          url: https://chat.googleapis.com/v1/spaces/AAAAKcZxd_Y/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=0SSQM8zTdsJs-XNOaL83dZgfb-MG_xUdIwxnNhZkriA
+          status: ${{ job.status }}
+          open_check_url: google.com
+
       
 
 # name: Android CI

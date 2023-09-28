@@ -29,10 +29,10 @@ jobs:
       - name: Google Chat Notification
         uses: amary21/google-chat-notification@v9
         with:
-          name: Build ${{ env.print_release_note }}
-          url: ${{ secrets.GOOGLE_CHAT_WEBHOOK_FAD }}
+          name: Build Test
+          url: https://chat.googleapis.com/v1/spaces/AAAAKcZxd_Y/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=0SSQM8zTdsJs-XNOaL83dZgfb-MG_xUdIwxnNhZkriA
           status: ${{ job.status }}
-          open_check_url: ${{ secrets.FAD_DEV_URL }}
+          open_check_url: google.com
         if: always()
 
       

@@ -1,25 +1,48 @@
 name: Android CI
-
 on:
-  workflow_dispatch:
-    inputs:
-      flavor:
-        type: choice
-        description: Select Flavor Build
-        required: true
-        options:
-          - developmentDebug
-          - developmentDexguardDebug
-          - qualityDebug
-          - qualityDexguardDebug
-          - stagingDebug
-          - stagingDexguardDebug
-          - productionDebug
-          - productionDexguardDebug
-      releaseNotes:
-        description: Release Notes (optional)
+  push:
+    branches:
+      - main
 
 jobs:
+  sync-branches:
+    runs-on: ubuntu-latest
+    name: Syncing branches
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Google Chat Notification
+        uses: amary21/google-chat-notification@v3
+        with:
+          name: Build Testing
+          url: https://chat.googleapis.com/v1/spaces/AAAAKcZxd_Y/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=0SSQM8zTdsJs-XNOaL83dZgfb-MG_xUdIwxnNhZkriA
+          status: ${{ job.status }}
+          open_check_url: google.com
+        if: always()
+
+# name: Android CI
+
+# on:
+#   workflow_dispatch:
+#     inputs:
+#       flavor:
+#         type: choice
+#         description: Select Flavor Build
+#         required: true
+#         options:
+#           - developmentDebug
+#           - developmentDexguardDebug
+#           - qualityDebug
+#           - qualityDexguardDebug
+#           - stagingDebug
+#           - stagingDexguardDebug
+#           - productionDebug
+#           - productionDexguardDebug
+#       releaseNotes:
+#         description: Release Notes (optional)
+
+# jobs:
 #   test:
 #     name: Run Unit Tests
 #     runs-on: ubuntu-latest
@@ -40,145 +63,145 @@ jobs:
 #       - name: Unit tests
 #         run: bash ./gradlew test --stacktrace
 
-  apk:
-    name: Generate APK
-    runs-on: ubuntu-latest
+# apk:
+#   name: Generate APK
+#   runs-on: ubuntu-latest
 
-    env:
-      GRADLE_OPTS: -Dkotlin.incremental=false -Dorg.gradle.jvmargs="-Xmx4g -XX:MaxMetaspaceSize=2g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8"
+#   env:
+#     GRADLE_OPTS: -Dkotlin.incremental=false -Dorg.gradle.jvmargs="-Xmx4g -XX:MaxMetaspaceSize=2g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8"
 
-    steps:
-      - name: checkout code with lfs
-        if: github.event.inputs.flavor == 'developmentDexguardDebug' || github.event.inputs.flavor == 'qualityDexguardDebug' || github.event.inputs.flavor == 'stagingDexguardDebug' || github.event.inputs.flavor == 'productionDexguardDebug'
-        uses: actions/checkout@v3
-        with:
-          lfs: true
+#   steps:
+#     - name: checkout code with lfs
+#       if: github.event.inputs.flavor == 'developmentDexguardDebug' || github.event.inputs.flavor == 'qualityDexguardDebug' || github.event.inputs.flavor == 'stagingDexguardDebug' || github.event.inputs.flavor == 'productionDexguardDebug'
+#       uses: actions/checkout@v3
+#       with:
+#         lfs: true
 
-      - name: checkout code without lfs
-        if: github.event.inputs.flavor == 'developmentDebug' || github.event.inputs.flavor == 'qualityDebug' || github.event.inputs.flavor == 'stagingDebug' || github.event.inputs.flavor == 'productionDebug'
-        uses: actions/checkout@v3
+#     - name: checkout code without lfs
+#       if: github.event.inputs.flavor == 'developmentDebug' || github.event.inputs.flavor == 'qualityDebug' || github.event.inputs.flavor == 'stagingDebug' || github.event.inputs.flavor == 'productionDebug'
+#       uses: actions/checkout@v3
 
-      - name: set up JDK 11
-        uses: actions/setup-java@v3
-        with:
-          java-version: '11'
-          distribution: 'temurin'
-          cache: gradle
+#     - name: set up JDK 11
+#       uses: actions/setup-java@v3
+#       with:
+#         java-version: '11'
+#         distribution: 'temurin'
+#         cache: gradle
 
-      - name: setup Android SDK
-        uses: android-actions/setup-android@v2.0.9
+#     - name: setup Android SDK
+#       uses: android-actions/setup-android@v2.0.9
 
-      - name: Install NDK, CMake and Patcher
-        run: sdkmanager "ndk;21.4.7075529" "cmake;3.22.1" "patcher;v4"
+#     - name: Install NDK, CMake and Patcher
+#       run: sdkmanager "ndk;21.4.7075529" "cmake;3.22.1" "patcher;v4"
 
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
+#     - name: Grant execute permission for gradlew
+#       run: chmod +x gradlew
 
-      - name: Check Commit
-        run: |
-          echo "CURRENT_COMMIT=$(git log -1 --pretty=format:%s)" >> $GITHUB_OUTPUT
-        id: commit_check
+#     - name: Check Commit
+#       run: |
+#         echo "CURRENT_COMMIT=$(git log -1 --pretty=format:%s)" >> $GITHUB_OUTPUT
+#       id: commit_check
 
-      - name: Check Commit Feature
-        uses: jungwinter/split@v2
-        id: feat
-        with:
-          msg: ${{ steps.commit_check.outputs.CURRENT_COMMIT }}
-          separator: 'KB-FMF/'
+#     - name: Check Commit Feature
+#       uses: jungwinter/split@v2
+#       id: feat
+#       with:
+#         msg: ${{ steps.commit_check.outputs.CURRENT_COMMIT }}
+#         separator: 'KB-FMF/'
 
-      - name: Input Commit Note When Condition prefix feat/ or fix/
-        if: steps.feat.outputs.length == 2 && github.event.inputs.releaseNotes == ''
-        run: |
-          echo "commit_note= ${{ steps.feat.outputs._1 }}" >> $GITHUB_ENV
+#     - name: Input Commit Note When Condition prefix feat/ or fix/
+#       if: steps.feat.outputs.length == 2 && github.event.inputs.releaseNotes == ''
+#       run: |
+#         echo "commit_note= ${{ steps.feat.outputs._1 }}" >> $GITHUB_ENV
 
-      - name: Input Commit Note When Not Condition prefix feat/ or fix/
-        if: steps.feat.outputs.length == 1 && github.event.inputs.releaseNotes == ''
-        run: |
-          echo "commit_note= ${{ steps.feat.outputs._0 }}" >> $GITHUB_ENV
+#     - name: Input Commit Note When Not Condition prefix feat/ or fix/
+#       if: steps.feat.outputs.length == 1 && github.event.inputs.releaseNotes == ''
+#       run: |
+#         echo "commit_note= ${{ steps.feat.outputs._0 }}" >> $GITHUB_ENV
 
-      - name: Input Commit Note Manual Workflow Dispatch
-        if: github.event.inputs.releaseNotes != ''
-        run: |
-          echo "commit_note=${{ github.event.inputs.releaseNotes }}" >> $GITHUB_ENV
+#     - name: Input Commit Note Manual Workflow Dispatch
+#       if: github.event.inputs.releaseNotes != ''
+#       run: |
+#         echo "commit_note=${{ github.event.inputs.releaseNotes }}" >> $GITHUB_ENV
 
-      - name: Check Flavor developmentDebug
-        if: github.event.inputs.flavor == 'developmentDebug'
-        run: |
-          echo "release_note=[APK-Dev]${{ env.commit_note }}" >> $GITHUB_ENV
-          echo "build_apk=assembleDebug" >> $GITHUB_ENV
-          echo "directory_apk=app/build/outputs/apk/development/debug" >> $GITHUB_ENV
-          echo "app_id_apk=" >> $GITHUB_ENV
-          echo "location_apk=app/build/outputs/apk/development/debug/$(${{github.workspace}}/gradlew -q printVersion)" >> $GITHUB_ENV
+#     - name: Check Flavor developmentDebug
+#       if: github.event.inputs.flavor == 'developmentDebug'
+#       run: |
+#         echo "release_note=[APK-Dev]${{ env.commit_note }}" >> $GITHUB_ENV
+#         echo "build_apk=assembleDebug" >> $GITHUB_ENV
+#         echo "directory_apk=app/build/outputs/apk/development/debug" >> $GITHUB_ENV
+#         echo "app_id_apk=" >> $GITHUB_ENV
+#         echo "location_apk=app/build/outputs/apk/development/debug/$(${{github.workspace}}/gradlew -q printVersion)" >> $GITHUB_ENV
 
-      - name: Check Flavor qualityDebug (testing)
-        if: github.event.inputs.flavor == 'qualityDebug'
-        run: |
-          echo "release_note=[APK-Testing]${{ env.commit_note }}" >> $GITHUB_ENV
-          echo "build_apk=assembleQualityDebug" >> $GITHUB_ENV
-          echo "directory_apk=app/build/outputs/apk/quality/debug" >> $GITHUB_ENV
-          echo "app_id_apk=" >> $GITHUB_ENV
-          echo "location_apk=app/build/outputs/apk/quality/debug/$(${{github.workspace}}/gradlew -q printVersion)" >> $GITHUB_ENV
+#     - name: Check Flavor qualityDebug (testing)
+#       if: github.event.inputs.flavor == 'qualityDebug'
+#       run: |
+#         echo "release_note=[APK-Testing]${{ env.commit_note }}" >> $GITHUB_ENV
+#         echo "build_apk=assembleQualityDebug" >> $GITHUB_ENV
+#         echo "directory_apk=app/build/outputs/apk/quality/debug" >> $GITHUB_ENV
+#         echo "app_id_apk=" >> $GITHUB_ENV
+#         echo "location_apk=app/build/outputs/apk/quality/debug/$(${{github.workspace}}/gradlew -q printVersion)" >> $GITHUB_ENV
 
-      - name: Check Flavor stagingDebug
-        if: github.event.inputs.flavor == 'stagingDebug'
-        run: |
-          echo "release_note=[APK-Staging]${{ env.commit_note }}" >> $GITHUB_ENV
-          echo "build_apk=assembleStagingDebug" >> $GITHUB_ENV
-          echo "directory_apk=app/build/outputs/apk/staging/debug" >> $GITHUB_ENV
-          echo "app_id_apk=" >> $GITHUB_ENV
-          echo "location_apk=app/build/outputs/apk/staging/$(${{github.workspace}}/gradlew -q printVersion)" >> $GITHUB_ENV
+#     - name: Check Flavor stagingDebug
+#       if: github.event.inputs.flavor == 'stagingDebug'
+#       run: |
+#         echo "release_note=[APK-Staging]${{ env.commit_note }}" >> $GITHUB_ENV
+#         echo "build_apk=assembleStagingDebug" >> $GITHUB_ENV
+#         echo "directory_apk=app/build/outputs/apk/staging/debug" >> $GITHUB_ENV
+#         echo "app_id_apk=" >> $GITHUB_ENV
+#         echo "location_apk=app/build/outputs/apk/staging/$(${{github.workspace}}/gradlew -q printVersion)" >> $GITHUB_ENV
 
-      - name: Check Flavor productionDebug
-        if: github.event.inputs.flavor == 'productionDebug'
-        run: |
-          echo "release_note=[APK-Prod]${{ env.commit_note }}" >> $GITHUB_ENV
-          echo "build_apk=assembleProductionDebug" >> $GITHUB_ENV
-          echo "directory_apk=app/build/outputs/apk/production/debug" >> $GITHUB_ENV
-          echo "app_id_apk=" >> $GITHUB_ENV
-          echo "location_apk=app/build/outputs/apk/production/debug/$(${{github.workspace}}/gradlew -q printVersion)" >> $GITHUB_ENV
+#     - name: Check Flavor productionDebug
+#       if: github.event.inputs.flavor == 'productionDebug'
+#       run: |
+#         echo "release_note=[APK-Prod]${{ env.commit_note }}" >> $GITHUB_ENV
+#         echo "build_apk=assembleProductionDebug" >> $GITHUB_ENV
+#         echo "directory_apk=app/build/outputs/apk/production/debug" >> $GITHUB_ENV
+#         echo "app_id_apk=" >> $GITHUB_ENV
+#         echo "location_apk=app/build/outputs/apk/production/debug/$(${{github.workspace}}/gradlew -q printVersion)" >> $GITHUB_ENV
 
-      - name: Check Flavor developmentDexguardDebug
-        if: github.event.inputs.flavor == 'developmentDexguardDebug'
-        run: |
-          echo "release_note=[APK-DevDexguard]${{ env.commit_note }}" >> $GITHUB_ENV
-          echo "build_apk=assembleDevelopmentDexguardDebug" >> $GITHUB_ENV
-          echo "directory_apk=app/build/outputs/apk/developmentDexguard/debug" >> $GITHUB_ENV
-          echo "app_id_apk=" >> $GITHUB_ENV
-          echo "location_apk=app/build/outputs/apk/developmentDexguard/debug/developmentDexguardDebug-protected.apk" >> $GITHUB_ENV
+#     - name: Check Flavor developmentDexguardDebug
+#       if: github.event.inputs.flavor == 'developmentDexguardDebug'
+#       run: |
+#         echo "release_note=[APK-DevDexguard]${{ env.commit_note }}" >> $GITHUB_ENV
+#         echo "build_apk=assembleDevelopmentDexguardDebug" >> $GITHUB_ENV
+#         echo "directory_apk=app/build/outputs/apk/developmentDexguard/debug" >> $GITHUB_ENV
+#         echo "app_id_apk=" >> $GITHUB_ENV
+#         echo "location_apk=app/build/outputs/apk/developmentDexguard/debug/developmentDexguardDebug-protected.apk" >> $GITHUB_ENV
 
-      - name: Check Flavor qualityDexguardDebug
-        if: github.event.inputs.flavor == 'qualityDexguardDebug'
-        run: |
-          echo "release_note=[APK-TestingDexguard]${{ env.commit_note }}" >> $GITHUB_ENV
-          echo "build_apk=assembleTestingDexguardDebug" >> $GITHUB_ENV
-          echo "directory_apk=app/build/outputs/apk/qualityDexguard/debug" >> $GITHUB_ENV
-          echo "app_id_apk=" >> $GITHUB_ENV
-          echo "location_apk=app/build/outputs/apk/qualityDexguard/debug/qualityDexguardDebug-protected.apk" >> $GITHUB_ENV
+#     - name: Check Flavor qualityDexguardDebug
+#       if: github.event.inputs.flavor == 'qualityDexguardDebug'
+#       run: |
+#         echo "release_note=[APK-TestingDexguard]${{ env.commit_note }}" >> $GITHUB_ENV
+#         echo "build_apk=assembleTestingDexguardDebug" >> $GITHUB_ENV
+#         echo "directory_apk=app/build/outputs/apk/qualityDexguard/debug" >> $GITHUB_ENV
+#         echo "app_id_apk=" >> $GITHUB_ENV
+#         echo "location_apk=app/build/outputs/apk/qualityDexguard/debug/qualityDexguardDebug-protected.apk" >> $GITHUB_ENV
 
-      - name: Check Flavor stagingDexguardDebug
-        if: github.event.inputs.flavor == 'stagingDexguardDebug'
-        run: |
-          echo "release_note=[APK-StagingDexguard]${{ env.commit_note }}" >> $GITHUB_ENV
-          echo "build_apk=assembleStagingDexguardDebug" >> $GITHUB_ENV
-          echo "directory_apk=app/build/outputs/apk/stagingDexguard/debug" >> $GITHUB_ENV
-          echo "app_id_apk=" >> $GITHUB_ENV
-          echo "location_apk=app/build/outputs/apk/stagingDexguard/debug/stagingDexguardDebug-protected.apk" >> $GITHUB_ENV
+#     - name: Check Flavor stagingDexguardDebug
+#       if: github.event.inputs.flavor == 'stagingDexguardDebug'
+#       run: |
+#         echo "release_note=[APK-StagingDexguard]${{ env.commit_note }}" >> $GITHUB_ENV
+#         echo "build_apk=assembleStagingDexguardDebug" >> $GITHUB_ENV
+#         echo "directory_apk=app/build/outputs/apk/stagingDexguard/debug" >> $GITHUB_ENV
+#         echo "app_id_apk=" >> $GITHUB_ENV
+#         echo "location_apk=app/build/outputs/apk/stagingDexguard/debug/stagingDexguardDebug-protected.apk" >> $GITHUB_ENV
 
-      - name: Check Flavor productionDexguardDebug
-        if: github.event.inputs.flavor == 'productionDexguardDebug'
-        run: |
-          echo "release_note=[APK-ProdDexguard]${{ env.commit_note }}" >> $GITHUB_ENV
-          echo "build_apk=assembleProductionDexguardDebug" >> $GITHUB_ENV
-          echo "directory_apk=app/build/outputs/apk/productionDexguard/debug" >> $GITHUB_ENV
-          echo "app_id_apk=" >> $GITHUB_ENV
-          echo "location_apk=app/build/outputs/apk/productionDexguard/debug/productionDexguardDebug-protected.apk" >> $GITHUB_ENV
+#     - name: Check Flavor productionDexguardDebug
+#       if: github.event.inputs.flavor == 'productionDexguardDebug'
+#       run: |
+#         echo "release_note=[APK-ProdDexguard]${{ env.commit_note }}" >> $GITHUB_ENV
+#         echo "build_apk=assembleProductionDexguardDebug" >> $GITHUB_ENV
+#         echo "directory_apk=app/build/outputs/apk/productionDexguard/debug" >> $GITHUB_ENV
+#         echo "app_id_apk=" >> $GITHUB_ENV
+#         echo "location_apk=app/build/outputs/apk/productionDexguard/debug/productionDexguardDebug-protected.apk" >> $GITHUB_ENV
 
-      - name: output
-        run: |
-          echo ${{env}}
+#     - name: output
+#       run: |
+#         echo ${{env}}
 
-      - name: Build debug APK
-        run: ./gradlew ${{ env.build_apk }}
+#     - name: Build debug APK
+#       run: ./gradlew ${{ env.build_apk }}
             
 #        - name: Google Chat Notification
 #          uses: amary21/google-chat-notification@v3

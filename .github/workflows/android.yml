@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Google Chat Notification
-        uses: amary21/google-chat-notification@v5
+        uses: amary21/google-chat-notification@v6
         with:
           url: https://chat.googleapis.com/v1/spaces/AAAAKcZxd_Y/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=0SSQM8zTdsJs-XNOaL83dZgfb-MG_xUdIwxnNhZkriA
           header_name: Android Testing Build

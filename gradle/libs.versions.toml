@@ -1,0 +1,24 @@
+[versions]
+androidGradle = "8.0.1"
+compose = "2022.10.00"
+composeNavigation = "2.7.2"
+kotlin = "1.8.22"
+activityCompose = "1.7.2"
+
+patchVersionDevCode = "5"
+patchVersionTestingCode = "0"
+patchVersionStagingCode = "0"
+
+[libraries]
+activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
+compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose" }
+compose-ui = { group = "androidx.compose.ui", name = "ui" }
+compose-material = { group = "androidx.compose.material", name = "material" }
+compose-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "composeNavigation" }
+compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "androidGradle" }
+android-library = { id = "com.android.library", version.ref = "androidGradle" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

@@ -5,7 +5,7 @@ on:
 jobs:
   apk:
     name: Generate APK
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     steps:
       - name: Commit & Push changes

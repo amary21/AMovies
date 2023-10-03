@@ -28,6 +28,8 @@ on:
       releaseNotes:
         description: Release Notes (optional)
 
+run-name: ${{ github.event.inputs.releaseNotes }}
+
 jobs:
   apk:
     name: Generate APK

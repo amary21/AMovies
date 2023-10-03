@@ -15,5 +15,5 @@ jobs:
         uses: actions-js/push@master
         with:
           message: 'increase patch version code'
-          branch: ${{ env.branch }}
+          branch: '${{ env.branch }}'
           github_token: ${{ secrets.GITHUB_TOKEN }}

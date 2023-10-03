@@ -26,6 +26,7 @@ on:
           - windows-latest
       bumpVersion:
         type: boolean
+        description: Auto Bump Version APK
         required: true
         default: true
 

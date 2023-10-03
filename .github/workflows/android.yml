@@ -24,6 +24,10 @@ on:
           - macos-latest
           - ubuntu-latest
           - windows-latest
+      bumpVersion:
+        type: boolean
+        required: true
+        default: true
 
       releaseNotes:
         description: Release Notes (optional)
@@ -39,6 +43,17 @@ jobs:
       - name: Print Input
         run: |
           echo ${{ github.event.inputs.runner }}
+    steps:
+      - name: Print Input True
+        if: github.event.inputs.bumpVersion == 'true'
+        run: |
+          echo "Hello"
+
+    steps:
+      - name: Print Input False
+        if: github.event.inputs.bumpVersion == 'false'
+        run: |
+          echo "World"
 # name: Android CI
 # on:
 #   push:

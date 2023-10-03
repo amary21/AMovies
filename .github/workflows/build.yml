@@ -22,5 +22,5 @@ jobs:
         uses: actions-js/push@master
         with:
           message: 'increase patch version code'
-          branch: 'feat/**'
-          github_token: ${{ secrets.GIT_TOKEN }}
+          branch: '${{ env.branch }}'
+          github_token: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,16 @@
+name: Build APK
+on:
+  push:
+    branches: feat/**
+jobs:
+  apk:
+    name: Generate APK
+    runs-on: self-hosted
+
+    steps:
+      - name: Commit & Push changes
+        uses: actions-js/ push@master
+        with:
+          message: 'increase patch version code'
+          branch: 'feat/**'
+          github_token: ${{ secrets.GITHUB_TOKEN }}

@@ -8,9 +8,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Extract branch name
+        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_ENV
+        
       - name: Commit & Push changes
         uses: actions-js/ push@master
         with:
           message: 'increase patch version code'
-          branch: 'feat/**'
+          branch: ${{ env.branch }}
           github_token: ${{ secrets.GITHUB_TOKEN }}

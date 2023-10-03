@@ -23,4 +23,4 @@ jobs:
         with:
           message: 'increase patch version code'
           branch: 'feat/test-push-code'
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GIT_TOKEN }}

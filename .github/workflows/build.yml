@@ -10,9 +10,9 @@ jobs:
     steps:
       - name: Extract branch name
         run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_ENV
-        
+
       - name: Commit & Push changes
-        uses: actions-js/ push@master
+        uses: actions-js/push@master
         with:
           message: 'increase patch version code'
           branch: ${{ env.branch }}

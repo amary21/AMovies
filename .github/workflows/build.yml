@@ -1,0 +1,26 @@
+name: Build APK
+on:
+  push:
+    branches: feat/**
+jobs:
+  apk:
+    name: Generate APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Extract branch name
+        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_ENV
+
+      - name: Bump version
+        shell: bash
+        run: |
+          bash ./bump_version.sh patchVersionDevCode
+
+      - name: Commit & Push changes
+        uses: actions-js/push@master
+        with:
+          message: 'increase patch version code'
+          branch: '${{ env.branch }}'
+          github_token: ${{ secrets.GITHUB_TOKEN }}

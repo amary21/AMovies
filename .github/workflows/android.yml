@@ -14,20 +14,22 @@ jobs:
       - name: Extract branch name
         run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_ENV
 
-      - name: Bump version
-        shell: bash
-        run: |
-          bash ./bump_version.sh patchVersionDevCode
+      # - name: Bump version
+      #   shell: bash
+      #   run: |
+      #     bash ./bump_version.sh patchVersionDevCode
       # - name: commit-push_branch-test
       #   uses: dsayling/commit-branch-check-action@v0.1.5
       #   with:
       #     github-token: ${{ secrets.GIT_TOKEN }}
       #     commit-message: "Update from ${{github.event.pull_request.head.ref}}"
       #     dest-branch: build/main
+      - name: Extract branch name
+        run: echo "patch_version=$((${{ secrets.GIT_TOKEN }}+1))" >> $GITHUB_ENV
 
       - uses: hmanzur/actions-set-secret@v2.0.0
         with:
           name: 'MY_SECRET_NAME'
-          value: 'Lorem ipsun dolor simit'
+          value: ${{ env.patch_version }}
           repository: ${{ github.repository }}
           token: ${{ secrets.GIT_TOKEN }}

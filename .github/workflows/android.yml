@@ -18,17 +18,9 @@ jobs:
         shell: bash
         run: |
           bash ./bump_version.sh patchVersionDevCode
-
-      - name: Pushing to the protected branch 'protected'
-        uses: CasperWA/push-protected@v2
+      - name: commit-push_branch-test
+        uses: dsayling/commit-branch-check-action@v0.1.5
         with:
-          token: ${{ secrets.GIT_TOKEN }}
-          branch: main
-      # - name: commit-push_branch-test
-      #   uses: dsayling/commit-branch-check-action@v0.1.5
-      #   with:
-      #     github-token: ${{ secrets.GIT_TOKEN }}
-      #     commit-message: "Update from ${{github.event.pull_request.head.ref}}"
-      #     dest-branch: build/main
-      #     verify-checks: true
-      #     delete-after-checks: true
+          github-token: ${{ secrets.GIT_TOKEN }}
+          commit-message: "Update from ${{github.event.pull_request.head.ref}}"
+          dest-branch: build/main

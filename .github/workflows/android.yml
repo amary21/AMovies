@@ -26,4 +26,4 @@ jobs:
         with:
           message: 'increase patch version code'
           branch: '${{ env.branch }}'
-          github_token: ${{ secrets.GIT_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}

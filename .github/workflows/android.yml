@@ -29,5 +29,5 @@ jobs:
         with:
           name: 'MY_SECRET_NAME'
           value: 'Lorem ipsun dolor simit'
-          repository: main
+          repository: ${{ github.repository }}
           token: ${{ secrets.GIT_TOKEN }}

@@ -18,9 +18,16 @@ jobs:
         shell: bash
         run: |
           bash ./bump_version.sh patchVersionDevCode
-      - name: commit-push_branch-test
-        uses: dsayling/commit-branch-check-action@v0.1.5
+      # - name: commit-push_branch-test
+      #   uses: dsayling/commit-branch-check-action@v0.1.5
+      #   with:
+      #     github-token: ${{ secrets.GIT_TOKEN }}
+      #     commit-message: "Update from ${{github.event.pull_request.head.ref}}"
+      #     dest-branch: build/main
+
+      - uses: hmanzur/actions-set-secret@v2.0.0
         with:
-          github-token: ${{ secrets.GIT_TOKEN }}
-          commit-message: "Update from ${{github.event.pull_request.head.ref}}"
-          dest-branch: build/main
+          name: 'MY_SECRET_NAME'
+          value: 'Lorem ipsun dolor simit'
+          repository: hmanzur/actions-set-secret
+          token: ${{ secrets.GIT_TOKEN }}

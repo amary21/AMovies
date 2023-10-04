@@ -5,7 +5,7 @@ composeNavigation = "2.7.2"
 kotlin = "1.8.22"
 activityCompose = "1.7.2"
 
-patchVersionDevCode = "19"
+patchVersionDevCode = "20"
 patchVersionTestingCode = "0"
 patchVersionStagingCode = "0"
 

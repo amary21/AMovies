@@ -23,6 +23,6 @@ jobs:
         with:
           github-token: ${{ secrets.GIT_TOKEN }}
           commit-message: "Update from ${{github.event.pull_request.head.ref}}"
-          dest-branch: ${{github.event.pull_request.head.sha }}-new
+          dest-branch: build/main
           verify-checks: true
           delete-after-checks: true

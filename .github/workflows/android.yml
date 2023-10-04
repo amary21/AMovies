@@ -25,12 +25,14 @@ jobs:
         shell: bash
         run: |
           bash ./bump_version.sh patchVersionDevCode
-      - name: Commit & Push changes
-        uses: actions-js/push@master
+      - name: commit-push_branch-test
+        uses: dsayling/commit-branch-check-action@v0.1
         with:
-          message: 'increase patch version code'
-          branch: '${{ env.branch }}'
-          github_token: ${{ secrets.GIT_TOKEN }}
+          github-token: ${{ secrets.GIT_TOKEN }}
+          commit-message: "Update from ${{github.event.pull_request.head.ref}}"
+          dest-branch: ${{github.event.pull_request.head.sha }}-new
+          verify-checks: true
+          delete-after-checks: true
 
       - name: Enable "include administrators" branch protection
         uses: benjefferies/branch-protection-bot@master

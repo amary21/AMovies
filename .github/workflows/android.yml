@@ -29,5 +29,5 @@ jobs:
         with:
           name: 'MY_SECRET_NAME'
           value: 'Lorem ipsun dolor simit'
-          repository: hmanzur/actions-set-secret
+          repository: main
           token: ${{ secrets.GIT_TOKEN }}

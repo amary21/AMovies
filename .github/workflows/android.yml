@@ -6,14 +6,9 @@ jobs:
   apk:
     name: Generate APK
     runs-on: ubuntu-latest
-    
+
     steps:
       - uses: actions/checkout@v3
-        with:
-          ref: ${{ github.head_ref }}
-          fetch-depth: 0
-          token: ${{ secrets.GIT_TOKEN }}
-
       - name: Extract branch name
         run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_ENV
 
@@ -21,15 +16,9 @@ jobs:
         shell: bash
         run: |
           bash ./bump_version.sh patchVersionDevCode
-
-      - name: Commit files
-        run: |
-          git config --local user.email "test@test.com"
-          git config --local user.name "Test"
-          git commit -a -m "Add changes"
-
       - name: Commit & Push changes
-        uses: ad-m/github-push-action@master
+        uses: actions-js/push@master
         with:
-          branch: '${{ env.branch }}'
-          github_token: ${{ secrets.GIT_TOKEN }}
+          message: 'increase patch version code'
+          branch: 'build/main'
+          github_token: ${{ secrets.GITHUB_TOKEN }}

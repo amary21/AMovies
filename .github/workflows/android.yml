@@ -5,6 +5,7 @@ on:
 jobs:
   apk:
     name: Generate APK
+    if: github.event.head_commit.message != 'increase patch version dev code'
     runs-on: ubuntu-latest
 
     steps:

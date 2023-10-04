@@ -6,13 +6,13 @@ jobs:
   apk:
     name: Generate APK
     runs-on: ubuntu-latest
-
+    
     steps:
       - uses: actions/checkout@v3
-      with:
-        ref: ${{ github.head_ref }}
-        fetch-depth: 0
-        token: ${{ secrets.GIT_TOKEN }}
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+          token: ${{ secrets.GIT_TOKEN }}
 
       - name: Extract branch name
         run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_ENV

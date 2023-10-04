@@ -25,7 +25,7 @@ jobs:
       #     commit-message: "Update from ${{github.event.pull_request.head.ref}}"
       #     dest-branch: build/main
       - name: Extract branch name
-        run: echo "patch_version=$((${{ secrets.GIT_TOKEN }}+1))" >> $GITHUB_ENV
+        run: echo "patch_version=$((${{ secrets.MY_SECRET_NAME }}+1))" >> $GITHUB_ENV
 
       - uses: hmanzur/actions-set-secret@v2.0.0
         with:
@@ -35,7 +35,7 @@ jobs:
           token: ${{ secrets.GIT_TOKEN }}
 
       - name: Extract branch name
-        run: echo "patch_version=$((${{ secrets.GIT_TOKEN }}+1))" >> world.txt
+        run: echo "${{ env.patch_version }}" >> world.txt
 
 
       - name: Upload Test Failures

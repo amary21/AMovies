@@ -8,13 +8,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Temporarily disable "include administrators" branch protection
-        uses: benjefferies/branch-protection-bot@master
-        if: always()
-        with:
-          access_token: ${{ secrets.GIT_TOKEN }}
-          branch: ${{ github.event.repository.default_branch }}
-          enforce_admins: false
 
       - uses: actions/checkout@v3
 
@@ -26,18 +19,10 @@ jobs:
         run: |
           bash ./bump_version.sh patchVersionDevCode
       - name: commit-push_branch-test
-        uses: dsayling/commit-branch-check-action@v0.1
+        uses: dsayling/commit-branch-check-action@v0.1.5
         with:
           github-token: ${{ secrets.GIT_TOKEN }}
           commit-message: "Update from ${{github.event.pull_request.head.ref}}"
           dest-branch: ${{github.event.pull_request.head.sha }}-new
           verify-checks: true
           delete-after-checks: true
-
-      - name: Enable "include administrators" branch protection
-        uses: benjefferies/branch-protection-bot@master
-        if: always()
-        with:
-          access_token: ${{ secrets.GIT_TOKEN }}
-          branch: ${{ github.event.repository.default_branch }}
-          enforce_admins: true

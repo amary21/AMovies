@@ -32,7 +32,7 @@ jobs:
           name: 'MY_SECRET_NAME'
           value: ${{ env.patch_version }}
           repository: ${{ github.repository }}
-          token: ${{ secrets.GIT_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Extract branch name
         run: echo "${{ env.patch_version }}" >> world.txt

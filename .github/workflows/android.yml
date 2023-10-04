@@ -9,8 +9,17 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
       - name: Extract branch name
         run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_ENV
+      
+      - name: Temporarily disable "include administrators" branch protection
+        uses: benjefferies/branch-protection-bot@master
+        if: always()
+        with:
+          access_token: ${{ secrets.GIT_TOKEN }}
+          branch: ${{ env.branch }}
+          enforce_admins: false
 
       - name: Bump version
         shell: bash
@@ -20,5 +29,13 @@ jobs:
         uses: actions-js/push@master
         with:
           message: 'increase patch version code'
-          branch: 'build/main'
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: '${{ env.branch }}'
+          github_token: ${{ secrets.GIT_TOKEN }}
+
+      - name: Enable "include administrators" branch protection
+        uses: benjefferies/branch-protection-bot@master
+        if: always()
+        with:
+          access_token: ${{ secrets.GIT_TOKEN }}
+          branch: ${{ env.branch }}
+          enforce_admins: true

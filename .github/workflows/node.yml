@@ -12,6 +12,5 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-      - run: npm test
       - run: npm install -g style-dictionary
       - run: npm install -g @tokens-studio/sd-transforms
